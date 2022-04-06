@@ -489,6 +489,13 @@
   dependencies:
     "@babel/core" ">=7.9.0"
 
+"@toast-ui/editor-plugin-code-syntax-highlight@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@toast-ui/editor-plugin-code-syntax-highlight/-/editor-plugin-code-syntax-highlight-3.0.0.tgz#a82a7b75f12386280be7efdc7c6f5bf5b48744f3"
+  integrity sha512-62XB3IcFgvRxVZzj2kTeQao0xACotv/mD6jScSDkWac2V0jkCsTh0kZRG4TSW5bGdKvx4xz3YjFm7gWgw1I/Aw==
+  dependencies:
+    prismjs "^1.23.0"
+
 "@toast-ui/editor@^2.5.1":
   version "2.5.4"
   resolved "https://registry.yarnpkg.com/@toast-ui/editor/-/editor-2.5.4.tgz#0764d56cddfb821778382a7e9efd8e0c273c5638"
@@ -2666,6 +2673,11 @@ prettier@^2.5.1:
   version "2.6.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.6.2.tgz#e26d71a18a74c3d0f0597f55f01fb6c06c206032"
   integrity sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==
+
+prismjs@^1.23.0:
+  version "1.27.0"
+  resolved "https://registry.yarnpkg.com/prismjs/-/prismjs-1.27.0.tgz#bb6ee3138a0b438a3653dd4d6ce0cc6510a45057"
+  integrity sha512-t13BGPUlFDR7wRB5kQDG4jjl7XeuH6jbJGt11JHPL96qwsEHNX2+68tFXqc1/k+/jALsbSWJKUOT/hcYAZ5LkA==
 
 progress@^2.0.0:
   version "2.0.3"

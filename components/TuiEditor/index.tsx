@@ -38,6 +38,7 @@ export default function TuiEditor() {
 
   return (
     <S.Wrapper>
+      <S.Title placeholder="제목을 입력하세요" />
       <Editor
         initialValue="console.log('hi');"
         ref={editorRef as MutableRefObject<Editor>}

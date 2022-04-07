@@ -24,21 +24,27 @@ import { deviceSize } from '../../styles/mediaQuery';
 import * as S from './style';
 
 export default function TuiEditor() {
+  const titleRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>();
 
   const windowSize = useGetWindowSize();
 
   function handleSubmit() {
-    if (!editorRef.current) return;
+    // ref가 없을때 예외처리
+    if (!editorRef.current || !titleRef.current) return;
 
+    const titleData = titleRef.current.value;
     const editorData = editorRef.current.getInstance().getHTML();
 
-    console.log(editorData);
+    // 입력한 제목이 없을때 예외처리
+    if (!titleData.length) alert('제목은 필수로 입력해주세요 🚨');
+
+    localStorage.setItem('post', JSON.stringify({ titleData, editorData }));
   }
 
   return (
     <S.Wrapper>
-      <S.Title placeholder="제목을 입력하세요" />
+      <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
       <Editor
         initialValue="console.log('hi');"
         ref={editorRef as MutableRefObject<Editor>}

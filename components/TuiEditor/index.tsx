@@ -22,23 +22,39 @@ import { MutableRefObject, useRef } from 'react';
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
 import { deviceSize } from '../../styles/mediaQuery';
 import * as S from './style';
+import { useRouter } from 'next/router';
 
 export default function TuiEditor() {
+  const router = useRouter();
+
+  const titleRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>();
 
   const windowSize = useGetWindowSize();
 
   function handleSubmit() {
-    if (!editorRef.current) return;
+    // ref가 없을때 예외처리
+    if (!editorRef.current || !titleRef.current) return;
 
-    const editorData = editorRef.current.getInstance().getHTML();
+    const titleData = titleRef.current.value;
+    const editorData = editorRef.current.getInstance().getMarkdown();
 
-    console.log(editorData);
+    // 입력한 제목이 없을때 예외처리
+    if (!titleData.length) {
+      alert('제목은 필수로 입력해주세요 🚨');
+      return;
+    }
+
+    // TODO: 데이터 전송 하기
+    localStorage.setItem('post', JSON.stringify({ id: 1, titleData, editorData }));
+
+    // TODO: id를 받아서 라우팅 하기
+    router.push('/post/1');
   }
 
   return (
     <S.Wrapper>
-      <S.Title placeholder="제목을 입력하세요" />
+      <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
       <Editor
         initialValue="console.log('hi');"
         ref={editorRef as MutableRefObject<Editor>}

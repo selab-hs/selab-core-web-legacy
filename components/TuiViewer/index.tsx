@@ -20,6 +20,8 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
+import * as S from './style';
+
 interface PostData {
   id: number;
   titleData: string;
@@ -38,14 +40,22 @@ const TuiEditor = () => {
   }, []);
 
   return (
-    <>
+    <S.Wrapper>
       {data && (
-        <Viewer
-          initialValue={data.editorData}
-          plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
-        />
+        <S.Container>
+          <S.Title>{data.titleData}</S.Title>
+          <S.Info>
+            <span>2022. 3. 25</span>
+            <span>조회수: 26</span>
+            <span>작성자: 강동진</span>
+          </S.Info>
+          <Viewer
+            initialValue={data.editorData}
+            plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+          />
+        </S.Container>
       )}
-    </>
+    </S.Wrapper>
   );
 };
 

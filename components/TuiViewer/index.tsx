@@ -20,6 +20,11 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
+import { BsFillHeartFill, BsLink45Deg } from 'react-icons/bs';
+import { BiCommentDetail } from 'react-icons/bi';
+import * as S from './style';
+import { useGetWindowSize } from '../../hooks/useGetWindowSize';
+
 interface PostData {
   id: number;
   titleData: string;
@@ -36,16 +41,36 @@ const TuiEditor = () => {
 
     setData(parsedPostData);
   }, []);
+  const windowWidth = useGetWindowSize();
+
+  // TODO: 좋아요, 댓글, 공유하기에 기능 붙이기
 
   return (
-    <>
+    <S.Wrapper>
       {data && (
-        <Viewer
-          initialValue={data.editorData}
-          plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
-        />
+        <S.Container>
+          <S.Title>{data.titleData}</S.Title>
+          <S.Info>
+            <span>2022. 3. 25</span>
+            <span>조회수: 26</span>
+            <span>작성자: 강동진</span>
+          </S.Info>
+          <Viewer
+            initialValue={data.editorData}
+            plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+          />
+          {windowWidth > 1160 && (
+            <S.Indicator>
+              <S.IndicatorContent>
+                <BsFillHeartFill size={20} cursor="pointer" />
+                <BsLink45Deg size={20} cursor="pointer" />
+                <BiCommentDetail size={20} cursor="pointer" />
+              </S.IndicatorContent>
+            </S.Indicator>
+          )}
+        </S.Container>
       )}
-    </>
+    </S.Wrapper>
   );
 };
 

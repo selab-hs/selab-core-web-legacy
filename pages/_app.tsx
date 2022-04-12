@@ -5,15 +5,6 @@ import { ThemeProvider } from '@emotion/react';
 import { theme } from '../styles';
 import Header from '../components/Header';
 import DynamicHeader from '../components/DynamicHeader';
-// import styled from '@emotion/styled';
-
-// const ComponentWrapper = styled.div`
-//   margin-top: 8.18rem;
-
-//   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
-//     margin-top: 5.125rem;
-//   }
-// `;
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [currentTab, setCurrentTab] = useState(0);
@@ -33,9 +24,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ThemeProvider theme={theme}>
       <Header currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={menuArr} />
       <DynamicHeader currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={menuArr} />
-      {/* <ComponentWrapper> */}
       <Component {...pageProps} />
-      {/* </ComponentWrapper> */}
     </ThemeProvider>
   );
 }

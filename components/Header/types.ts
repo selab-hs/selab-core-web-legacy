@@ -7,5 +7,4 @@ export interface Props {
     link: string;
     content: string;
   }[];
-  [x: string]: any;
 }

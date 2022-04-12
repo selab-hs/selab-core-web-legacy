@@ -2,21 +2,28 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Header from '../Header';
 import { Props } from '../Header/types';
+import * as S from './style';
 
 const DynamicHeader = ({ currentTab, setCurrentTab, menuArr }: Props) => {
   const timeOutId = useRef(0);
   const [show, setShow] = useState(true);
+  const [noneTransitionShow, setNoneTransitionShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const controlNavbar = () => {
     if (!timeOutId.current) {
       timeOutId.current = window.setTimeout(() => {
         timeOutId.current = 0;
-        console.log(window.scrollY);
-        if (window.scrollY < 151 || window.scrollY > lastScrollY) {
-          setShow(false);
+        // console.log(window.scrollY);
+        if (window.scrollY < 145) {
+          setNoneTransitionShow(true);
         } else {
-          setShow(true);
+          setNoneTransitionShow(true);
+          if (window.scrollY > lastScrollY) {
+            setShow(false);
+          } else {
+            setShow(true);
+          }
         }
         setLastScrollY(window.scrollY);
       }, 100);
@@ -33,14 +40,9 @@ const DynamicHeader = ({ currentTab, setCurrentTab, menuArr }: Props) => {
 
   return (
     <>
-      {show && (
-        <Header
-          style={{ position: 'fixed', top: '0', right: '0', left: '0', zIndex: '10' }}
-          currentTab={currentTab}
-          setCurrentTab={setCurrentTab}
-          menuArr={menuArr}
-        />
-      )}
+      <S.HeaderWrapper show={show}>
+        <Header currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={menuArr} />
+      </S.HeaderWrapper>
     </>
   );
 };

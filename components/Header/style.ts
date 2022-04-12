@@ -54,7 +54,7 @@ export const Ul = styled.ul`
 
   li {
     display: inline-block;
-    margin: 0 1rem 0.25rem 0;
+    margin: 0 1rem 0.25rem;
     font-size: 1.125rem;
     line-height: 1.25rem;
     opacity: 0.5;

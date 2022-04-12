@@ -1,49 +1,10 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import Link from 'next/link';
-import React, { useEffect, useState } from 'react';
+import { Props } from './types';
 import * as S from './style';
 
-const Header = () => {
-  const [currentTab, setCurrentTab] = useState(0);
-  const [show, setShow] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [tmpScroll, setTmpScroll] = useState(lastScrollY);
-
-  useEffect(() => {
-    const debounce = setTimeout(() => {
-      if (window.scrollY > lastScrollY) {
-        setShow(false);
-      } else {
-        setShow(true);
-      }
-      return setLastScrollY(tmpScroll);
-    }, 15);
-    return () => clearTimeout(debounce);
-  }, [tmpScroll]);
-
-  const controlNavbar = () => setTmpScroll(window.scrollY);
-
-  useEffect(() => {
-    window.addEventListener('scroll', controlNavbar);
-
-    return () => {
-      window.removeEventListener('scroll', controlNavbar);
-    };
-  }, [lastScrollY]);
-
-  const menuArr = [
-    { link: '/', content: '홈' },
-    { link: '/post/1', content: '게시글' },
-    { link: '/write', content: '글작성' },
-    { link: '/', content: '홈' },
-    { link: '/post/1', content: '게시글' },
-    { link: '/write', content: '글작성' },
-    { link: '/', content: '홈' },
-    { link: '/post/1', content: '게시글' },
-  ];
-
+const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
   return (
-    <S.HeaderWrapper style={{ display: show ? 'block' : 'none' }}>
+    <S.HeaderWrapper {...props}>
       <S.Header>
         <Link href={'/'}>
           <img src="/selab_logo.png" alt="selab-logo" />

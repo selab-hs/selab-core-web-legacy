@@ -1,11 +1,6 @@
 import styled from '@emotion/styled';
 
-export const HeaderWrapper = styled.header`
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-  z-index: 10;
+export const HeaderWrapper = styled.div`
   width: 100%;
   background-color: white;
   box-shadow: 0 5px 18px -7px rgb(0 0 0 / 15%);

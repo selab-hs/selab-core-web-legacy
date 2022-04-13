@@ -7,24 +7,18 @@ import * as S from './style';
 const DynamicHeader = ({ currentTab, setCurrentTab, menuArr }: Props) => {
   const timeOutId = useRef(0);
   const [show, setShow] = useState(true);
-  const [noneTransitionShow, setNoneTransitionShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   const controlNavbar = () => {
     if (!timeOutId.current) {
       timeOutId.current = window.setTimeout(() => {
         timeOutId.current = 0;
-        // console.log(window.scrollY);
         if (window.scrollY < 145) {
-          setNoneTransitionShow(true);
-        } else {
-          setNoneTransitionShow(true);
-          if (window.scrollY > lastScrollY) {
-            setShow(false);
-          } else {
-            setShow(true);
-          }
+          setShow(false);
+          setLastScrollY(window.scrollY);
+          return;
         }
+        window.scrollY > lastScrollY ? setShow(false) : setShow(true);
         setLastScrollY(window.scrollY);
       }, 100);
     }

@@ -59,7 +59,7 @@ export default function TuiEditor() {
         initialValue="console.log('hi');"
         ref={editorRef as MutableRefObject<Editor>}
         height="100%"
-        previewStyle={windowSize > deviceSize.mobile ? 'vertical' : 'tab'}
+        previewStyle={windowSize > deviceSize.laptop ? 'vertical' : 'tab'}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
       />
       <div onClick={handleSubmit}>전송!</div>

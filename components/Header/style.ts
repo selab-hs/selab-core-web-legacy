@@ -3,9 +3,7 @@ import styled from '@emotion/styled';
 export const HeaderWrapper = styled.div`
   box-sizing: border-box;
   width: 100%;
-  margin-bottom: 10px;
   background-color: white;
-  box-shadow: 0 5px 18px -7px rgb(0 0 0 / 15%);
 `;
 
 export const Header = styled.header`

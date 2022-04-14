@@ -18,18 +18,22 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
-import { MutableRefObject, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { useRouter } from 'next/router';
+import { v4 } from 'uuid';
+
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
 import { deviceSize } from '../../styles/mediaQuery';
 import * as S from './style';
-import * as B from '../Header/style';
-import { useRouter } from 'next/router';
+import { storage } from '../utils';
+import { TEMPORARY_POSTS } from '../utils/constants';
 
 export default function TuiEditor() {
   const router = useRouter();
-
+  const [editorData, setEditorData] = useState<any>();
   const titleRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>();
+  const timeoutId = useRef(0);
 
   const windowSize = useGetWindowSize();
 
@@ -53,17 +57,37 @@ export default function TuiEditor() {
     router.push('/post/1');
   }
 
+  const handleEditorChange = () => {
+    if (timeoutId.current) {
+      clearTimeout(timeoutId.current);
+    }
+    timeoutId.current = window.setTimeout(() => {
+      if (!editorRef.current) return;
+      const content = editorRef.current.getInstance().getMarkdown();
+
+      const postObj = [
+        {
+          id: v4(),
+          title: titleRef.current?.value || '',
+          content,
+        },
+      ];
+
+      storage.set(TEMPORARY_POSTS, postObj);
+    }, 500);
+  };
+
+  // TODO: 첫 로드 시 임시글이 있다면 불러오기
   return (
     <S.Wrapper>
       <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
       <Editor
-        placeholder="내용을 작성해주세요"
         ref={editorRef as MutableRefObject<Editor>}
         height="100%"
         previewStyle={windowSize > deviceSize.laptop ? 'vertical' : 'tab'}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        onChange={handleEditorChange}
       />
-      {/* <div onClick={handleSubmit}>전송!</div> */}
     </S.Wrapper>
   );
 }

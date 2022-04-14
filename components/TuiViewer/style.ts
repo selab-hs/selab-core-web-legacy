@@ -14,7 +14,8 @@ export const Container = styled.div`
   padding: 0px 20px;
 
   div {
-    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
     padding: 0px;
@@ -59,8 +60,7 @@ export const IndicatorContent = styled.div`
   flex-direction: column;
   gap: 1.25rem;
   align-items: center;
-  width: 2.5rem;
-  padding: 1.25rem 0.625rem;
+  padding: 1.25rem 1.2rem;
   background-color: rgb(246 247 248);
   border-radius: 30px;
 `;

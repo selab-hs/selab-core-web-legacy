@@ -10,8 +10,10 @@ const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
           <img src="/selab_logo.png" alt="selab-logo" />
         </Link>
         <S.BtnWrapper>
-          <S.LogInBtn>로그인</S.LogInBtn>
-          <S.SignUpBtn>회원가입</S.SignUpBtn>
+          <S.LogInBtn currentTab={currentTab}>
+            {currentTab !== 2 ? '로그인' : '뒤로가기'}
+          </S.LogInBtn>
+          <S.SignUpBtn>{currentTab !== 2 ? '회원가입' : '작성하기'}</S.SignUpBtn>
         </S.BtnWrapper>
         <nav>
           <S.Ul>

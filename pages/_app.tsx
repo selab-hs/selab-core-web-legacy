@@ -20,7 +20,6 @@ function MyApp({ Component, pageProps }: AppProps) {
   useLayoutEffect(() => {
     const { pathname } = route;
     const path = pathname.split('/')[1];
-    console.log(path);
     if (path === undefined || path === '_error') {
       setCurrentTab(0);
     } else if (path === 'post') {
@@ -29,6 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       setCurrentTab(2);
     }
   }, [route]);
+
   return (
     <ThemeProvider theme={theme}>
       {currentTab !== null && (

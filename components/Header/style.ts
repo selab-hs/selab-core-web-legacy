@@ -1,5 +1,9 @@
 import styled from '@emotion/styled';
 
+type Prop = {
+  currentTab: number;
+};
+
 export const HeaderWrapper = styled.div`
   width: 100%;
   background-color: white;
@@ -74,7 +78,7 @@ export const BtnWrapper = styled.div`
   }
 `;
 
-export const LogInBtn = styled.button`
+export const LogInBtn = styled.button<Prop>`
   display: inline-flex;
   align-items: center; /* 가로 - 중앙으로 */
   height: 1.75rem;
@@ -82,8 +86,12 @@ export const LogInBtn = styled.button`
   margin-left: 0.25rem;
   font-size: 0.75rem;
   line-height: 1.75rem;
-  border: 0.07rem solid #b2b2b2;
+  color: ${({ currentTab }) => (currentTab !== 2 ? '' : 'white')};
+  background-color: ${({ currentTab }) => (currentTab !== 2 ? '' : 'rgb(234,67,84)')};
+  border: ${({ currentTab }) =>
+    currentTab !== 2 ? '0.07rem solid #b2b2b2' : '0.15rem solid rgb(234,67,84)'};
   border-radius: 0.1875rem;
+  opacity: ${({ currentTab }) => (currentTab !== 2 ? '' : '0.8')};
 `;
 
 export const SignUpBtn = styled.button`

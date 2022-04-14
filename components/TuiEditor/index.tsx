@@ -22,6 +22,7 @@ import { MutableRefObject, useRef } from 'react';
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
 import { deviceSize } from '../../styles/mediaQuery';
 import * as S from './style';
+import * as B from '../Header/style';
 import { useRouter } from 'next/router';
 
 export default function TuiEditor() {
@@ -56,13 +57,13 @@ export default function TuiEditor() {
     <S.Wrapper>
       <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
       <Editor
-        initialValue="console.log('hi');"
+        placeholder="내용을 작성해주세요"
         ref={editorRef as MutableRefObject<Editor>}
         height="100%"
         previewStyle={windowSize > deviceSize.laptop ? 'vertical' : 'tab'}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
       />
-      <div onClick={handleSubmit}>전송!</div>
+      {/* <div onClick={handleSubmit}>전송!</div> */}
     </S.Wrapper>
   );
 }

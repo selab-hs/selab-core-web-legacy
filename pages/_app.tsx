@@ -15,8 +15,6 @@ function MyApp({ Component, pageProps }: AppProps) {
     { link: '/', content: '홈' },
     { link: '/post/1', content: '게시글' },
     { link: '/write', content: '글작성' },
-    { link: '/', content: '홈' },
-    { link: '/post/1', content: '게시글' },
   ];
 
   useLayoutEffect(() => {

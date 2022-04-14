@@ -1,9 +1,9 @@
 import styled from '@emotion/styled';
 
 export const HeaderWrapper = styled.div`
-  box-sizing: border-box;
   width: 100%;
   background-color: white;
+  box-shadow: 0 5px 18px -7px rgb(0 0 0 / 15%);
 `;
 
 export const Header = styled.header`
@@ -18,7 +18,6 @@ export const Header = styled.header`
     width: 100%;
     padding: 10px 0 14px;
     overflow-x: auto;
-    overflow-y: hidden;
     text-align: left;
     white-space: nowrap;
   }
@@ -62,7 +61,9 @@ export const Ul = styled.ul`
 `;
 
 export const BtnWrapper = styled.div`
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
   margin: 29px 19px 0 0;
 
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
@@ -77,7 +78,7 @@ export const LogInBtn = styled.button`
   display: inline-flex;
   align-items: center; /* 가로 - 중앙으로 */
   height: 1.75rem;
-  padding-bottom: 1px;
+  padding: 0 6px 1px;
   margin-left: 0.25rem;
   font-size: 0.75rem;
   line-height: 1.75rem;
@@ -89,7 +90,7 @@ export const SignUpBtn = styled.button`
   display: inline-flex;
   align-items: center; /* 가로 - 중앙으로 */
   height: 1.75rem;
-  padding: 0 0.5;
+  padding: 0 6px 1px;
   margin-left: 0.25rem;
   font-size: 0.75rem;
   line-height: 1.75rem;

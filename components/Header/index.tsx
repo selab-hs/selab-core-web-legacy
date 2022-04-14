@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Props } from './types';
 import * as S from './style';
+import HeaderBtns from './HeaderBtns';
 
 const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
   return (
@@ -9,12 +10,7 @@ const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
         <Link href={'/'}>
           <img src="/selab_logo.png" alt="selab-logo" />
         </Link>
-        <S.BtnWrapper>
-          <S.LogInBtn currentTab={currentTab}>
-            {currentTab !== 2 ? '로그인' : '뒤로가기'}
-          </S.LogInBtn>
-          <S.SignUpBtn>{currentTab !== 2 ? '회원가입' : '작성하기'}</S.SignUpBtn>
-        </S.BtnWrapper>
+        <HeaderBtns currentTab={currentTab} />
         <nav>
           <S.Ul>
             {menuArr.map((menu, index) => (

@@ -50,11 +50,17 @@ const TuiEditor = () => {
       {data && (
         <S.Container>
           <S.Title>{data.titleData}</S.Title>
-          <S.Info>
-            <span>2022. 3. 25</span>
-            <span>조회수: 26</span>
-            <span>작성자: 강동진</span>
-          </S.Info>
+          <S.InfoWrapper>
+            <S.Info>
+              <span>2022. 3. 25</span>
+              <span>조회수: 26</span>
+              <span>작성자: 강동진</span>
+            </S.Info>
+            <div>
+              <span>수정</span>
+              <span>삭제</span>
+            </div>
+          </S.InfoWrapper>
           <Viewer
             initialValue={data.editorData}
             plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}

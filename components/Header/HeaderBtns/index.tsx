@@ -20,7 +20,7 @@ const HeaderBtns = ({ currentTab }: Props) => {
           <S.LeftBtn currentTab={currentTab} onClick={handleBackBtn}>
             뒤로가기
           </S.LeftBtn>
-          <S.RightBtn>작성하기</S.RightBtn>
+          <S.RightBtn onClick={handleBackBtn}>작성하기</S.RightBtn>
         </>
       )}
       {currentTab !== 2 && (

@@ -23,16 +23,22 @@ export const Container = styled.div`
 `;
 
 export const Title = styled.h1`
+  margin-top: 3rem;
   font-size: 2.25rem;
   font-weight: 600;
 `;
+
+export const InfoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 4rem 0 5rem;
+  font-weight: 300;
+  color: #888;
+`;
+
 export const Info = styled.div`
   display: flex;
   gap: 20px;
-  height: 1.2rem;
-  margin-top: 10px;
-  font-weight: 300;
-  color: #888;
 
   & > span {
     position: relative;

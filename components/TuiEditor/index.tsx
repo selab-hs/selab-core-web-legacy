@@ -77,7 +77,18 @@ export default function TuiEditor() {
     }, 500);
   };
 
-  // TODO: 첫 로드 시 임시글이 있다면 불러오기
+  useEffect(() => {
+    if (!editorRef.current || !titleRef.current) return;
+    // TODO: 데이터 추가되면 변경해야함
+
+    const tmpPost = storage.get<{ id: string; title: string; content: string }[]>(TEMPORARY_POSTS);
+    const content = tmpPost ? tmpPost[0].content : '';
+    const title = tmpPost ? tmpPost[0].title : '';
+
+    titleRef.current.value = title;
+    editorRef.current.getInstance().setMarkdown(content);
+  }, []);
+
   return (
     <S.Wrapper>
       <S.Title placeholder="제목을 입력하세요" ref={titleRef} />

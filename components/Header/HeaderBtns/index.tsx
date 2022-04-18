@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
 
@@ -15,6 +16,7 @@ const HeaderBtns = ({ currentTab }: Props) => {
   };
   return (
     <S.BtnWrapper>
+      <DarkModeToggle />
       {currentTab === 2 && (
         <>
           <S.LeftBtn currentTab={currentTab} onClick={handleBackBtn}>

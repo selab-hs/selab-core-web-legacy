@@ -1,13 +1,13 @@
 export const lightTheme = {
-  MAIN: '#6868AD',
-  SUB: '#dbd7ff',
+  MAIN: 'black',
+  SUB: 'white',
   BACKGROUND: '#fdfdff',
   SUBBACKGROUND: 'rgb(242, 240, 253)',
 };
 
 export const darkTheme = {
-  MAIN: '#dbd7ff',
-  SUB: '#6868AD',
+  MAIN: 'white',
+  SUB: 'black',
   BACKGROUND: '#202124',
   SUBBACKGROUND: '#30373e',
 };

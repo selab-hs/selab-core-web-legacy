@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
+import { ColorTheme } from '../../../styles/theme';
 
-export const BtnWrapper = styled.div`
+export const BtnWrapper = styled.div<{ colorTheme: ColorTheme; currentTab: number }>`
   position: absolute;
   top: 0;
   right: 0;
@@ -16,6 +17,7 @@ export const BtnWrapper = styled.div`
     line-height: 1.75rem;
   }
 
+  color: ${({ colorTheme, currentTab }) => (currentTab !== 2 ? colorTheme.MAIN : colorTheme.SUB)};
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
     position: absolute;
     top: 25px;
@@ -25,7 +27,6 @@ export const BtnWrapper = styled.div`
 `;
 
 export const LeftBtn = styled.button<{ currentTab: number }>`
-  color: ${({ currentTab }) => (currentTab !== 2 ? 'black' : 'white')};
   background-color: ${({ currentTab }) => (currentTab !== 2 ? '' : 'rgb(234,67,84)')};
   border: ${({ currentTab }) =>
     currentTab !== 2 ? '0.07rem solid #b2b2b2' : '0.15rem solid rgb(234,67,84)'};
@@ -34,7 +35,6 @@ export const LeftBtn = styled.button<{ currentTab: number }>`
 `;
 
 export const RightBtn = styled.button`
-  color: white;
   background-color: #b2b2b2;
   border: 0.07rem solid #b2b2b2;
   border-radius: 0.1875rem;

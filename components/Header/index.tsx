@@ -2,17 +2,21 @@ import Link from 'next/link';
 import { Props } from './types';
 import * as S from './style';
 import HeaderBtns from './HeaderBtns';
+import { useContext } from 'react';
+import { ThemeContext } from '../../pages/_app';
 
 const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
+  const { colorTheme } = useContext(ThemeContext);
+
   return (
-    <S.HeaderWrapper {...props}>
+    <S.HeaderWrapper {...props} colorTheme={colorTheme}>
       <S.Header>
         <Link href={'/'}>
           <img src="/selab_logo.png" alt="selab-logo" />
         </Link>
         <HeaderBtns currentTab={currentTab} />
         <nav>
-          <S.Ul>
+          <S.Ul colorTheme={colorTheme}>
             {menuArr.map((menu, index) => (
               <li
                 key={index}

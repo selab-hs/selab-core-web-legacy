@@ -131,7 +131,6 @@ export const GlobalStyle = (props: ColorTheme) =>
     }
 
     a {
-      color: black;
       text-decoration: none;
       cursor: pointer;
       outline: none;

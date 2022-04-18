@@ -95,6 +95,7 @@ export default function TuiEditor() {
       <Editor
         ref={editorRef as MutableRefObject<Editor>}
         height="100%"
+        placeholder="내용을 입력하세요"
         previewStyle={windowSize > deviceSize.laptop ? 'vertical' : 'tab'}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         onChange={handleEditorChange}

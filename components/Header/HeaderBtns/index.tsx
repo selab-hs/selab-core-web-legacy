@@ -13,6 +13,9 @@ const HeaderBtns = ({ currentTab }: Props) => {
     alert('임시저장이 완료되었습니다.');
     router.back();
   };
+  const handleCreateBtn = () => {
+    // TODO: 서버에 데이터 전송하기
+  };
   return (
     <S.BtnWrapper>
       {currentTab === 2 && (
@@ -20,7 +23,7 @@ const HeaderBtns = ({ currentTab }: Props) => {
           <S.LeftBtn currentTab={currentTab} onClick={handleBackBtn}>
             뒤로가기
           </S.LeftBtn>
-          <S.RightBtn onClick={handleBackBtn}>작성하기</S.RightBtn>
+          <S.RightBtn onClick={handleCreateBtn}>작성하기</S.RightBtn>
         </>
       )}
       {currentTab !== 2 && (

@@ -24,23 +24,23 @@ import { BsFillHeartFill, BsLink45Deg } from 'react-icons/bs';
 import { BiCommentDetail } from 'react-icons/bi';
 import * as S from './style';
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
+import { storage } from '../utils';
+import { TEMPORARY_POSTS } from '../utils/constants';
 
 interface PostData {
-  id: number;
-  titleData: string;
-  editorData: string;
+  id: string;
+  title: string;
+  content: string;
 }
 
 const TuiEditor = () => {
   const [data, setData] = useState<PostData | null>(null);
 
   useEffect(() => {
-    const postData = localStorage.getItem('post');
-
-    const parsedPostData = postData ? JSON.parse(postData) : null;
-
-    setData(parsedPostData);
+    const tmpPost = storage.get<{ id: string; title: string; content: string }[]>(TEMPORARY_POSTS);
+    setData(tmpPost ? tmpPost[0] : null);
   }, []);
+
   const windowWidth = useGetWindowSize();
 
   // TODO: 좋아요, 댓글, 공유하기에 기능 붙이기
@@ -49,20 +49,20 @@ const TuiEditor = () => {
     <S.Wrapper>
       {data && (
         <S.Container>
-          <S.Title>{data.titleData}</S.Title>
+          <S.Title>{data.title}</S.Title>
           <S.InfoWrapper>
             <S.Info>
               <span>2022. 3. 25</span>
               <span>조회수: 26</span>
               <span>작성자: 강동진</span>
             </S.Info>
-            <div>
+            <S.Info clickable>
               <span>수정</span>
               <span>삭제</span>
-            </div>
+            </S.Info>
           </S.InfoWrapper>
           <Viewer
-            initialValue={data.editorData}
+            initialValue={data.content}
             plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
           />
           {windowWidth > 1160 && (

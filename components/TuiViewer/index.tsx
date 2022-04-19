@@ -39,7 +39,7 @@ interface PostData {
 const TuiEditor = () => {
   const [data, setData] = useState<PostData | null>(null);
   const { colorTheme } = useContext(ThemeContext);
-  const ref = useRef<HTMLInputElement>(null);
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tmpPost = storage.get<{ id: string; title: string; content: string }[]>(TEMPORARY_POSTS);
@@ -58,7 +58,7 @@ const TuiEditor = () => {
     } else {
       el.classList.add('toastui-editor-dark');
     }
-  }, [colorTheme]);
+  }, [data, colorTheme]);
 
   return (
     <S.Wrapper>

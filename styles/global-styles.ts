@@ -159,6 +159,11 @@ export const GlobalStyle = (props: ColorTheme) =>
       border: 0;
     }
 
+    /* code highlight issue */
+    .token.operator {
+      background: transparent;
+    }
+
     body {
       font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto,
         'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',

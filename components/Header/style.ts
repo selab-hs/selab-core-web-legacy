@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
+import { ColorTheme } from '../../styles/theme';
 
-export const HeaderWrapper = styled.div`
+export const HeaderWrapper = styled.div<{ colorTheme: ColorTheme }>`
   width: 100%;
-  background-color: white;
+  background-color: ${({ colorTheme }) => colorTheme.BACKGROUND};
   box-shadow: 0 5px 18px -7px rgb(0 0 0 / 15%);
 `;
 
@@ -45,9 +46,9 @@ export const Header = styled.header`
   }
 `;
 
-export const Ul = styled.ul`
+export const Ul = styled.ul<{ colorTheme: ColorTheme }>`
   .focused {
-    color: black;
+    color: ${({ colorTheme }) => colorTheme.MAIN};
     opacity: 1;
   }
 

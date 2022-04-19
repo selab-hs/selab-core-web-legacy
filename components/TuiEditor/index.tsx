@@ -12,13 +12,14 @@ import 'prismjs/components/prism-xml-doc.js';
 import 'prismjs/components/prism-typescript.js';
 import 'prismjs/components/prism-kotlin.js';
 
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
-import { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useContext, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { v4 } from 'uuid';
 
@@ -27,6 +28,8 @@ import { deviceSize } from '../../styles/mediaQuery';
 import * as S from './style';
 import { storage } from '../utils';
 import { TEMPORARY_POSTS } from '../utils/constants';
+import { ThemeContext } from '../../pages/_app';
+import { lightTheme } from '../../styles/theme';
 
 export default function TuiEditor() {
   const router = useRouter();
@@ -36,6 +39,7 @@ export default function TuiEditor() {
   const timeoutId = useRef(0);
 
   const windowSize = useGetWindowSize();
+  const { colorTheme } = useContext(ThemeContext);
 
   function handleSubmit() {
     // ref가 없을때 예외처리
@@ -89,12 +93,29 @@ export default function TuiEditor() {
     editorRef.current.getInstance().setMarkdown(content);
   }, []);
 
+  useEffect(() => {
+    const mdTabContainer = document.querySelector(
+      '.toastui-editor-md-tab-container',
+    ) as HTMLElement;
+    const el = document.getElementsByClassName('toastui-editor-defaultUI')[0];
+    if (colorTheme === lightTheme) {
+      el.classList.remove('toastui-editor-dark');
+      mdTabContainer.style.background = '#fdfdff';
+      mdTabContainer.style.borderBottomColor = '#fdfdff';
+    } else {
+      el.classList.add('toastui-editor-dark');
+      mdTabContainer.style.background = 'rgb(35, 36, 40)';
+      mdTabContainer.style.borderBottomColor = 'rgb(35, 36, 40)';
+    }
+  }, [colorTheme, windowSize]);
+
   return (
     <S.Wrapper>
-      <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
+      <S.Title placeholder="제목을 입력하세요" ref={titleRef} colorTheme={colorTheme} />
       <Editor
         ref={editorRef as MutableRefObject<Editor>}
         height="100%"
+        placeholder="내용을 입력하세요"
         previewStyle={windowSize > deviceSize.laptop ? 'vertical' : 'tab'}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         onChange={handleEditorChange}

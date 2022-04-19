@@ -31,24 +31,26 @@ export const Title = styled.h1`
 export const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 4rem 0 5rem;
+  margin: 2rem 0 4rem;
   font-weight: 300;
   color: #888;
 `;
 
-export const Info = styled.div`
+export const Info = styled.div<{ clickable?: boolean }>`
   display: flex;
   gap: 20px;
 
   & > span {
     position: relative;
     font-size: 1rem;
+    cursor: ${({ clickable }) => (clickable ? 'pointer' : '')};
 
     &:not(:last-of-type)::after {
       position: absolute;
       top: -12px;
-      right: -15px;
+      right: -13px;
       font-size: 1.5rem;
+      cursor: default;
       content: '.';
     }
   }

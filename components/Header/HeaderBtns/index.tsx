@@ -1,8 +1,13 @@
 import { useRouter } from 'next/router';
+import { useContext } from 'react';
+import { ThemeContext } from '../../../pages/_app';
+import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
 
 const HeaderBtns = ({ currentTab }: Props) => {
+  const { colorTheme } = useContext(ThemeContext);
+
   const router = useRouter();
 
   const loginBtn = () => {
@@ -13,14 +18,18 @@ const HeaderBtns = ({ currentTab }: Props) => {
     alert('임시저장이 완료되었습니다.');
     router.back();
   };
+  const handleCreateBtn = () => {
+    // TODO: 서버에 데이터 전송하기
+  };
   return (
-    <S.BtnWrapper>
+    <S.BtnWrapper colorTheme={colorTheme} currentTab={currentTab}>
+      <DarkModeToggle />
       {currentTab === 2 && (
         <>
           <S.LeftBtn currentTab={currentTab} onClick={handleBackBtn}>
             뒤로가기
           </S.LeftBtn>
-          <S.RightBtn onClick={handleBackBtn}>작성하기</S.RightBtn>
+          <S.RightBtn onClick={handleCreateBtn}>작성하기</S.RightBtn>
         </>
       )}
       {currentTab !== 2 && (

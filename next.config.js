@@ -6,6 +6,7 @@ const nextConfig = {
     path: '/',
   },
   suffix: '.html',
+  trailingSlash: true,
 };
 
 module.exports = nextConfig;

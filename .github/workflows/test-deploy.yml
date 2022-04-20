@@ -18,9 +18,9 @@ jobs:
 
       - name: build
         run: 
-          npm install -g yarn
           yarn install --frozen-lockfile
           yarn build
+      
       - name: find build files
         run: ls
 

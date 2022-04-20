@@ -159,6 +159,14 @@ export const GlobalStyle = (props: ColorTheme) =>
       border: 0;
     }
 
+    input:focus {
+      outline: none;
+    }
+
+    textarea:focus {
+      outline: none;
+    }
+
     /* code highlight issue */
     .token.operator {
       background: transparent;

@@ -21,7 +21,9 @@ jobs:
           npm install -g yarn
           yarn install --frozen-lockfile
           yarn build
-      
+      - name: find build files
+        run: ls
+
       - name: Configure AWS Credentials
         #uses: aws-actions/configure-aws-credentials@v1
         env: 
@@ -31,4 +33,4 @@ jobs:
           aws s3 cp \
           --recursive \
           --region ap-northeast-2 \
-          out s3://${{secrets.BUCKET_NAME}}
+          build s3://${{secrets.BUCKET_NAME}}

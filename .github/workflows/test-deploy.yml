@@ -18,8 +18,7 @@ jobs:
 
       - name: build
         run: 
-          yarn add --frozen-lockfile
-          yarn build
+          yarn add --frozen-lockfile && yarn build
       
       - name: find build files
         run: ls

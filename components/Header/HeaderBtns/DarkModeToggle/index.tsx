@@ -22,9 +22,6 @@ const ToggleButton = styled('button')<ToggleProps>`
   color: ${({ colorTheme }) => colorTheme.MAIN};
   cursor: pointer;
   background: ${({ colorTheme }) => colorTheme.BACKGROUND};
-  box-shadow: 3px 3px 10px rgb(0 0 0 / 20%);
-
-  &:hover {
-    filter: brightness(${({ colorTheme }) => (colorTheme === lightTheme ? '0.9' : '1.13')});
-  }
+  border: 0.07rem solid #b2b2b2;
+  border-radius: 0.1875rem;
 `;

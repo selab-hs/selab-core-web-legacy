@@ -16,10 +16,12 @@ jobs:
         with: 
           node-version: 16.x
 
-      - name: build
-        run: 
-          yarn add --frozen-lockfile && yarn build
+      - name: Install packages
+        run: rm -rf node_modules && yarn install --frozen-lockfile
       
+      - name: Build
+        run: yarn build
+
       - name: find build files
         run: ls
 

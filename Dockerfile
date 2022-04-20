@@ -4,10 +4,10 @@ WORKDIR /usr/src/next
 
 COPY . /usr/src/next
 
-RUN npm install
+RUN yarn 
 
 # COPY . /usr/src/next
 
-RUN npm run build
+RUN yarn build
 
-CMD [ "npm" , "run" , "dev"]
+CMD [ "yarn" , "run" , "dev"]

@@ -31,4 +31,4 @@ jobs:
           aws s3 cp \
           --recursive \
           --region ap-northeast-2 \
-          dist s3://${{secrets.BUCKET_NAME}}
+          out s3://${{secrets.BUCKET_NAME}}

@@ -5,6 +5,7 @@ const nextConfig = {
     loader: 'akamai',
     path: '/',
   },
+  suffix: '.html',
 };
 
 module.exports = nextConfig;

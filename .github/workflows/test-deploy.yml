@@ -6,29 +6,29 @@ on:
 
 jobs:
   CD:
-  runs-on: ubuntu-latest
-  steps:
-    - name: Git Checkout
-    - uses: actions/checkout@v3
+    runs-on: ubuntu-latest
+    steps:
+      - name: Git Checkout
+      - uses: actions/checkout@v3
 
-    - name: use node.js 16.x
-    - uses: actions/setup-node@v3
-      with: 
-        node-version: 16.x
+      - name: use node.js 16.x
+      - uses: actions/setup-node@v3
+        with: 
+          node-version: 16.x
 
-    - name: build
-      run: 
-        npm install -g yarn
-        yarn install --frozen-lockfile
-        yarn build
-    
-    - name: Configure AWS Credentials
-      uses: aws-actions/configure-aws-credentials@v1
-      with: |
-        aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-        aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
-      run: |
-        aws s3 cp \
-        --recursive \
-        --region ap-northeast-2 \
-        dist s3://${{secrets.BUCKET_NAME}}
+      - name: build
+        run: 
+          npm install -g yarn
+          yarn install --frozen-lockfile
+          yarn build
+      
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with: |
+          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+        run: |
+          aws s3 cp \
+          --recursive \
+          --region ap-northeast-2 \
+          dist s3://${{secrets.BUCKET_NAME}}

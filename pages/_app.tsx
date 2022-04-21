@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const menuArr = [
     { link: '/', content: '홈' },
-    { link: '/post/1', content: '게시글' },
+    { link: '/free-posts', content: '게시글' },
     { link: '/write', content: '글작성' },
   ];
 
@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     const path = pathname.split('/')[1];
     if (path === undefined || path === '_error') {
       setCurrentTab(0);
-    } else if (path === 'post') {
+    } else if (path === 'free-posts') {
       setCurrentTab(1);
     } else if (path === 'write') {
       setCurrentTab(2);

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import Modal from '../Modal';
 import { Props } from './types';
 import * as S from './styles';
@@ -14,7 +14,7 @@ const SignUpAndSignInModal = ({ setIsModalOpen }: Props) => {
   return (
     <Modal setIsModalOpen={setIsModalOpen}>
       <S.CloseBtn onClick={handleCloseBtn}>x</S.CloseBtn>
-      <S.Form>{step === 0 && <VerifyIsMember />}</S.Form>
+      {step === 0 && <VerifyIsMember />}
       {/* <form>
         <label htmlFor="email" />
         <input id="email" placeholder="이메일을 입력해주세요" />

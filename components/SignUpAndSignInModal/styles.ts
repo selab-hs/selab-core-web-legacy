@@ -25,3 +25,7 @@ export const Label = styled.label`
   font-weight: 400;
   color: ${({ theme: { colors } }) => `${colors.gray100}`};
 `;
+export const ErrorMsg = styled.p`
+  margin-top: 11px;
+  color: ${({ theme: { colors } }) => `${colors.red}`};
+`;

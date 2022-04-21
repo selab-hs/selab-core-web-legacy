@@ -1,9 +1,11 @@
 import axios from 'axios';
+import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useContext } from 'react';
+import { MouseEvent, useContext, useState } from 'react';
 import { ThemeContext } from '../../../pages/_app';
 import { storage } from '../../utils';
 import { TEMPORARY_POSTS } from '../../utils/constants';
+import SignUpAndSignInModal from '../../SignUpAndSignInModal';
 import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
@@ -14,7 +16,7 @@ export const token =
 
 const HeaderBtns = ({ currentTab }: Props) => {
   const { colorTheme } = useContext(ThemeContext);
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
   const loginBtn = () => {
@@ -54,7 +56,10 @@ const HeaderBtns = ({ currentTab }: Props) => {
       console.error(err);
     }
   };
-
+  const handleSignUp = (e: MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    setIsModalOpen(true);
+  };
   return (
     <S.BtnWrapper colorTheme={colorTheme} currentTab={currentTab}>
       <DarkModeToggle />
@@ -69,7 +74,13 @@ const HeaderBtns = ({ currentTab }: Props) => {
       {currentTab !== 2 && (
         <>
           <S.LeftBtn currentTab={currentTab}>로그인</S.LeftBtn>
-          <S.RightBtn>회원가입</S.RightBtn>
+
+          <S.RightBtn onClick={handleSignUp}>회원가입</S.RightBtn>
+          {isModalOpen && (
+            <>
+              <SignUpAndSignInModal setIsModalOpen={setIsModalOpen} />
+            </>
+          )}
         </>
       )}
     </S.BtnWrapper>

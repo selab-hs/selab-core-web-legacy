@@ -3,6 +3,6 @@ export interface FreePostType {
   freePostId: number;
   title: string;
   content: string;
-  createdAt: Date;
-  modifiedAt: Date;
+  createdAt: string;
+  modifiedAt: string;
 }

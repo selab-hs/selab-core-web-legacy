@@ -1,38 +1,25 @@
 /* eslint-disable @next/next/link-passhref */
-import axios, { AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 import Link from 'next/link';
 import * as S from './style';
 import { BiSearchAlt2 } from 'react-icons/bi';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { ThemeContext } from '../_app';
 import { timeForToday } from '../../components/utils/timeForToday';
 import { FreePostType } from './types';
+import { GetServerSideProps } from 'next';
 
+// TODO: 추후 삭제 예정
 axios.defaults.baseURL = 'http://3.35.64.22:8080';
 
-const config: AxiosRequestConfig = {
-  method: 'get',
-  url: '/api/v1/free-posts',
-  headers: {
-    Authorization:
-      'Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwNjM0MzM3fQ.tdV2Mgxh-hzoxvgpdylCmnE0cH-vIiqE4YepBWb0pW49ym167gH0p4Yfa07IW0cwNbKXUL4OwxNluOMyO55sqA',
-  },
-};
+// TODO: 추후 삭제 예정
+export const token =
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwNzY1MTcyfQ.hNAAOomtftpT-7Uj-uLsju_AjNGL9FQyCK9jZL2aMUap7CST-NvIyJ9HyVUamw9ljKZQgdIp5fOaSo419r7K1w';
 
-const FreePosts = () => {
-  const [freePosts, setFreePosts] = useState<FreePostType[]>([]);
+const FreePosts = ({ freePosts }: { freePosts: FreePostType[] }) => {
   const { colorTheme } = useContext(ThemeContext);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const response = await axios(config);
-        setFreePosts(response.data.freePosts);
-      } catch (err) {
-        console.error(err);
-      }
-    })();
-  }, []);
+  console.log(freePosts);
 
   return (
     <S.FreePostsWrapper>
@@ -42,8 +29,8 @@ const FreePosts = () => {
           <BiSearchAlt2 size={20} cursor="pointer" />
         </S.SearchSubmit>
       </S.SearchWrapper>
-      {freePosts.length > 0 &&
-        freePosts.map((data, index) => {
+      {freePosts?.length > 0 &&
+        freePosts.map((data: any, index: number) => {
           return (
             <Link href={`/free-posts/${index + 1}`} key={data.freePostId}>
               <S.Post colorTheme={colorTheme}>
@@ -58,6 +45,18 @@ const FreePosts = () => {
         })}
     </S.FreePostsWrapper>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await axios({
+    method: 'get',
+    url: '/api/v1/free-posts',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return { props: { freePosts: response.data.data.freePosts } };
 };
 
 export default FreePosts;

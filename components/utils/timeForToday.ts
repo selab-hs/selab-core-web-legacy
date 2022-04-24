@@ -1,4 +1,4 @@
-export const timeForToday = (value: Date) => {
+export const timeForToday = (value: string) => {
   const today = new Date();
   const timeValue = new Date(value);
 

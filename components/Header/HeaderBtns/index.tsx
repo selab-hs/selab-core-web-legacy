@@ -1,5 +1,3 @@
-import axios from 'axios';
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { MouseEvent, useContext, useState } from 'react';
 import { ThemeContext } from '../../../pages/_app';
@@ -60,6 +58,7 @@ const HeaderBtns = ({ currentTab }: Props) => {
     e.stopPropagation();
     setIsModalOpen(true);
   };
+
   return (
     <S.BtnWrapper colorTheme={colorTheme} currentTab={currentTab}>
       <DarkModeToggle />

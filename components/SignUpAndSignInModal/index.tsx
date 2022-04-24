@@ -18,7 +18,7 @@ const SignUpAndSignInModal = ({ setIsModalOpen }: Props) => {
       <S.CloseBtn onClick={handleCloseBtn}>x</S.CloseBtn>
       {step === 0 && <VerifyIsMemberModal setStep={setStep} setEmail={setEmail} />}
       {step === 1 && <SignInForm email={email} />}
-      {step === 2 && <SignUpForm email={email} />}
+      {step === 2 && <SignUpForm email={email} setStep={setStep} />}
     </S.CuModal>
   );
 };

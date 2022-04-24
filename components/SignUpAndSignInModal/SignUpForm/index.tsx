@@ -1,12 +1,14 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { CLIENT_ERROR } from '../../../apis/constants';
+import { CLIENT_ERROR, SERVER_ERROR } from '../../../apis/constants';
+import { Response } from '../../../apis/types';
+import { signUpApi } from '../../../apis/users';
 
 import * as S from '../styles';
 import { Props } from './types';
 
-const SignUpForm = ({ email }: Props) => {
+const SignUpForm = ({ email, setStep }: Props) => {
   const verifySignUpData = yup.object().shape({
     password: yup
       .string()
@@ -42,7 +44,29 @@ const SignUpForm = ({ email }: Props) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ password, studentId, name, nickname }) => {
-    console.log(password, studentId, name, nickname);
+    try {
+      const { data } = await signUpApi({ email, password, studentId, name, nickname });
+      if (!data) {
+        setStep(1);
+      }
+    } catch (e: any) {
+      const response = e.response as Response;
+      if (!response) return;
+
+      const {
+        status,
+        data: { message, code },
+      } = response;
+      console.error(message);
+      console.error(code);
+
+      if (status >= 400) {
+        return alert(CLIENT_ERROR);
+      }
+      if (status >= 500) {
+        return alert(SERVER_ERROR);
+      }
+    }
   };
 
   return (

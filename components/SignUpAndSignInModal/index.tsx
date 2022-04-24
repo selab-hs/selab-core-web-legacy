@@ -1,46 +1,25 @@
-import { FormEvent, useState } from 'react';
-import Modal from '../Modal';
+import { useState } from 'react';
 import { Props } from './types';
 import * as S from './styles';
-import VerifyIsMember from './VerifyIsMember';
+import VerifyIsMemberModal from './VerifyIsMemberModal';
+import SignUpForm from './SignUpForm';
+import SignInForm from './SignInForm';
 
 const SignUpAndSignInModal = ({ setIsModalOpen }: Props) => {
   const [step, setStep] = useState(0);
+  const [email, setEmail] = useState('');
 
   const handleCloseBtn = () => {
     setIsModalOpen(false);
   };
 
   return (
-    <Modal setIsModalOpen={setIsModalOpen}>
+    <S.CuModal setIsModalOpen={setIsModalOpen}>
       <S.CloseBtn onClick={handleCloseBtn}>x</S.CloseBtn>
-      {step === 0 && <VerifyIsMember />}
-      {/* <form>
-        <label htmlFor="email" />
-        <input id="email" placeholder="이메일을 입력해주세요" />
-
-        <label htmlFor="studentId" />
-        <input id="studentId" placeholder="학번을 입력해주세요" />
-
-        <label htmlFor="name" />
-        <input id="name" placeholder="이름을 입력해주세요" />
-
-        <label htmlFor="password" />
-        <input id="password" placeholder="비밀번호를 입력해주세요" />
-
-        <label htmlFor="pwdConfirm" />
-        <input id="pwdConfirm" placeholder="비밀번호 확인" />
-
-        <label htmlFor="nickname" />
-        <input id="nickname" placeholder="닉네임을 입력해주세요" />
-
-        <label htmlFor="pwdConfirm" />
-        <input id="pwdConfirm" placeholder="비밀번호 확인" />
-
-        <label htmlFor="pwdConfirm" />
-        <input id="pwdConfirm" placeholder="비밀번호 확인" type="file" />
-      </form> */}
-    </Modal>
+      {step === 0 && <VerifyIsMemberModal setStep={setStep} setEmail={setEmail} />}
+      {step === 1 && <SignInForm email={email} />}
+      {step === 2 && <SignUpForm email={email} />}
+    </S.CuModal>
   );
 };
 export default SignUpAndSignInModal;

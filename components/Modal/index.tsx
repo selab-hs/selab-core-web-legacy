@@ -1,18 +1,13 @@
 import ReactDOM from 'react-dom';
-import { Dispatch, SetStateAction } from 'react';
 import BaseModal from './BaseModal';
 import { useCreateElement } from './useCreateElement';
+import { Props } from './types';
 
-export interface Props {
-  children: React.ReactNode;
-  setIsModalOpen: Dispatch<SetStateAction<boolean>>;
-}
-
-const Modal = ({ children, setIsModalOpen, ...props }: Props) => {
+const Modal = ({ children, setIsModalOpen, isAway, ...props }: Props) => {
   const el = useCreateElement('portal-modal');
 
   return ReactDOM.createPortal(
-    <BaseModal {...props} setIsModalOpen={setIsModalOpen}>
+    <BaseModal setIsModalOpen={setIsModalOpen} isAway={isAway} {...props}>
       {children}
     </BaseModal>,
     el,

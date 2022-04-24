@@ -2,16 +2,16 @@ import { useClickAway } from '../../hooks/useClickAway';
 import { usePreventScroll } from './usePreventScroll';
 import { Dim, Wrapper } from './style';
 import { MutableRefObject, useCallback } from 'react';
-import { Props } from '.';
+import { Props } from './types';
 
-const BaseModal = ({ children, setIsModalOpen, ...props }: Props) => {
+const BaseModal = ({ children, setIsModalOpen, isAway, ...props }: Props) => {
   usePreventScroll();
 
   const handleCloseBtn = useCallback(() => {
     setIsModalOpen(false);
   }, []);
 
-  const ref = useClickAway(handleCloseBtn);
+  const ref = isAway ? useClickAway(handleCloseBtn) : null;
 
   return (
     <Dim>

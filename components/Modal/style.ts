@@ -17,10 +17,6 @@ export const Wrapper = styled.div`
   top: 50%;
   left: 50%;
   z-index: 100001;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 20px;
   background-color: white;
   border-radius: 10px;

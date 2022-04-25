@@ -25,26 +25,35 @@ import { BsFillHeartFill, BsLink45Deg } from 'react-icons/bs';
 import { BiCommentDetail } from 'react-icons/bi';
 import * as S from './style';
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
-import { storage } from '../utils';
-import { TEMPORARY_POSTS } from '../utils/constants';
 import { ThemeContext } from '../../pages/_app';
 import { lightTheme } from '../../styles/theme';
+import axios from 'axios';
+import { FreePostType } from '../../pages/free-posts/types';
+import { useRouter } from 'next/router';
+import { timeWithHyphen } from '../utils/timeWithHyphen';
 
-interface PostData {
-  id: string;
-  title: string;
-  content: string;
-}
+// TODO: 추후 삭제 예정
+const token =
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTU4MzIzfQ.bXy9dkOgEoN5Y-9bySizyEIjvhy-3MYpYTB7dqe1RXka81LU9EBbFEx9TG-f2ZbVNRloTfOwfeb-yduFmOyZqA';
 
 const TuiEditor = () => {
-  const [data, setData] = useState<PostData | null>(null);
+  const [freePost, setFreePost] = useState<FreePostType | null>(null);
   const { colorTheme } = useContext(ThemeContext);
   const ref = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    const tmpPost = storage.get<{ id: string; title: string; content: string }[]>(TEMPORARY_POSTS);
-    setData(tmpPost ? tmpPost[0] : null);
-  }, []);
+    (async () => {
+      const response = await axios({
+        method: 'get',
+        url: `/api/v1/free-posts/${router.query.id}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setFreePost(response.data.data);
+    })();
+  }, [router.query.id]);
 
   const windowWidth = useGetWindowSize();
 
@@ -58,18 +67,20 @@ const TuiEditor = () => {
     } else {
       el.classList.add('toastui-editor-dark');
     }
-  }, [data, colorTheme]);
+  }, [freePost, colorTheme]);
 
   return (
     <S.Wrapper>
-      {data && (
+      {freePost ? (
         <S.Container>
-          <S.Title>{data.title}</S.Title>
+          <S.Title>{freePost.title}</S.Title>
           <S.InfoWrapper>
             <S.Info>
-              <span>2022. 3. 25</span>
-              <span>조회수: 26</span>
-              <span>작성자: 강동진</span>
+              <span>{timeWithHyphen(freePost.createdAt)}</span>
+              {/*  TODO: 조회수 보여주기 */}
+              {/* <span>조회수: 26</span> */}
+              {/*  TODO: 사용자 이름 보여주기 */}
+              <span>작성자: {freePost.memberId}번 사용자</span>
             </S.Info>
             <S.Info clickable>
               <span>수정</span>
@@ -78,7 +89,7 @@ const TuiEditor = () => {
           </S.InfoWrapper>
           <div ref={ref}>
             <Viewer
-              initialValue={data.content}
+              initialValue={freePost.content}
               plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
             />
           </div>
@@ -92,9 +103,29 @@ const TuiEditor = () => {
             </S.Indicator>
           )}
         </S.Container>
+      ) : (
+        <div>로딩중...</div>
       )}
     </S.Wrapper>
   );
 };
+
+// TODO: ssr을 못하는게 아마도 이걸로 추정
+// dynamic(() => import('../../components/TuiViewer'), { ssr: false });
+
+// export async function getServerSideProps(context: any) {
+//   const id = context.params.id;
+//   const response = await axios({
+//     method: 'get',
+//     url: `/api/v1/free-posts/${id}.json`,
+//     headers: {
+//       Authorization: `Bearer ${token}`,
+//     },
+//   });
+
+//   return {
+//     props: { freePost: response.data.data },
+//   };
+// }
 
 export default TuiEditor;

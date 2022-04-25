@@ -14,12 +14,10 @@ axios.defaults.baseURL = 'http://3.35.64.22:8080';
 
 // TODO: 추후 삭제 예정
 export const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwNzY1MTcyfQ.hNAAOomtftpT-7Uj-uLsju_AjNGL9FQyCK9jZL2aMUap7CST-NvIyJ9HyVUamw9ljKZQgdIp5fOaSo419r7K1w';
+  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTU4MzIzfQ.bXy9dkOgEoN5Y-9bySizyEIjvhy-3MYpYTB7dqe1RXka81LU9EBbFEx9TG-f2ZbVNRloTfOwfeb-yduFmOyZqA';
 
 const FreePosts = ({ freePosts }: { freePosts: FreePostType[] }) => {
   const { colorTheme } = useContext(ThemeContext);
-
-  console.log(freePosts);
 
   return (
     <S.FreePostsWrapper>
@@ -30,9 +28,9 @@ const FreePosts = ({ freePosts }: { freePosts: FreePostType[] }) => {
         </S.SearchSubmit>
       </S.SearchWrapper>
       {freePosts?.length > 0 &&
-        freePosts.map((data: any, index: number) => {
+        freePosts.map((data: FreePostType) => {
           return (
-            <Link href={`/free-posts/${index + 1}`} key={data.freePostId}>
+            <Link href={`/free-posts/${data.freePostId}`} key={data.freePostId}>
               <S.Post colorTheme={colorTheme}>
                 <S.Title colorTheme={colorTheme}>{data.title}</S.Title>
                 <S.Content>{data.content}</S.Content>
@@ -55,6 +53,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
       Authorization: `Bearer ${token}`,
     },
   });
+
+  console.log(response.data.data.freePosts);
 
   return { props: { freePosts: response.data.data.freePosts } };
 };

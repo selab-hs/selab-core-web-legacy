@@ -42,11 +42,10 @@ const SignUpForm = ({ email, setStep }: Props) => {
   } = useForm({
     resolver: yupResolver(verifySignUpData),
   });
-
   const onSubmit: SubmitHandler<FieldValues> = async ({ password, studentId, name, nickname }) => {
     try {
       const { data } = await signUpApi({ email, password, studentId, name, nickname });
-      if (!data) {
+      if (data.data.email) {
         setStep(1);
       }
     } catch (e: any) {
@@ -77,20 +76,24 @@ const SignUpForm = ({ email, setStep }: Props) => {
         id="password"
         placeholder="비밀번호를 입력해 주세요"
         type="password"
+        autoComplete="on"
         {...register('password')}
       />
       {errors.password && <S.ErrorMsg>{errors.password.message}</S.ErrorMsg>}
-      <S.Label htmlFor="passwordConfirm">비밀 번호 확인</S.Label>
+      <S.Label htmlFor="password-confirm">비밀 번호 확인</S.Label>
       <S.Input
         id="passwordConfirm"
         placeholder="비밀번호 확인"
         type="password"
+        autoComplete="on"
         {...register('passwordConfirm')}
       />
       {errors.passwordConfirm && <S.ErrorMsg>{errors.passwordConfirm.message}</S.ErrorMsg>}
+
       <S.Label htmlFor="studentId">학번</S.Label>
       <S.Input id="studentId" placeholder="학번을 입력해 주세요" {...register('studentId')} />
       {errors.studentId && <S.ErrorMsg>{errors.studentId.message}</S.ErrorMsg>}
+
       <S.Label htmlFor="name">이름</S.Label>
       <S.Input id="name" placeholder="이름을 입력해 주세요" {...register('name')} />
       {errors.name && <S.ErrorMsg>{errors.name.message}</S.ErrorMsg>}

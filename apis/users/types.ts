@@ -7,5 +7,7 @@ export interface SignUpApiParams {
 }
 
 export interface SignUpApiResponse {
-  data: null;
+  data: {
+    email: string;
+  };
 }

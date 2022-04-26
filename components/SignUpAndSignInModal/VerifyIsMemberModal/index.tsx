@@ -7,7 +7,7 @@ import { isMemberExist } from '../../../apis/users';
 import { CLIENT_ERROR, SERVER_ERROR } from '../../../apis/constants';
 import { Props } from './types';
 
-const VerifyIsMemberModal = ({ setStep }: Props) => {
+const VerifyIsMemberModal = ({ setStep, setEmail }: Props) => {
   const verifyEmail = yup.object().shape({
     email: yup.string().required('이메일을 입력해 주세요.').email('이메일 양식이 아닙니다.'),
   });
@@ -33,6 +33,7 @@ const VerifyIsMemberModal = ({ setStep }: Props) => {
         data: { signup },
       } = data;
       const nextStep = signup ? 1 : 2;
+      setEmail(email);
       setStep(nextStep);
     } catch (e) {
       console.error(e);

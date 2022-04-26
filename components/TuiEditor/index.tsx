@@ -41,26 +41,6 @@ export default function TuiEditor() {
   const windowSize = useGetWindowSize();
   const { colorTheme } = useContext(ThemeContext);
 
-  function handleSubmit() {
-    // ref가 없을때 예외처리
-    if (!editorRef.current || !titleRef.current) return;
-
-    const titleData = titleRef.current.value;
-    const editorData = editorRef.current.getInstance().getMarkdown();
-
-    // 입력한 제목이 없을때 예외처리
-    if (!titleData.length) {
-      alert('제목은 필수로 입력해주세요 🚨');
-      return;
-    }
-
-    // TODO: 데이터 전송 하기
-    localStorage.setItem('post', JSON.stringify({ id: 1, titleData, editorData }));
-
-    // TODO: id를 받아서 라우팅 하기
-    router.push('/post/1');
-  }
-
   const handleEditorChange = () => {
     if (timeoutId.current) {
       clearTimeout(timeoutId.current);

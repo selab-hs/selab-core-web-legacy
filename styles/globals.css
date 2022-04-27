@@ -110,6 +110,10 @@ textarea {
   color: inherit;
 }
 
+input {
+  outline: none;
+}
+
 button,
 select {
   text-transform: none;

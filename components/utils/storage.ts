@@ -11,7 +11,6 @@ const storage = {
 
   set: <T>(key: string, value: T) => {
     try {
-      console.log(JSON.stringify(value), value);
       localStorage.setItem(key, JSON.stringify(value));
     } catch (e) {
       console.error(e);

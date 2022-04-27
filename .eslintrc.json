@@ -29,6 +29,9 @@
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "react/react-in-jsx-scope": 0,
     "@typescript-eslint/no-empty-interface": 0,
-    "@typescript-eslint/no-explicit-any": 0
+    "@typescript-eslint/no-explicit-any": 0,
+    "react-hooks/exhaustive-deps": 0,
+    "no-useless-escape": 0,
+    "react-hooks/rules-of-hooks": 0
   }
 }

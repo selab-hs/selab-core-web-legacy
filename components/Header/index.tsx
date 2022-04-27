@@ -4,6 +4,7 @@ import * as S from './style';
 import HeaderBtns from './HeaderBtns';
 import { useContext } from 'react';
 import { ThemeContext } from '../../pages/_app';
+import { lightTheme } from '../../styles/theme';
 
 const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
   const { colorTheme } = useContext(ThemeContext);
@@ -12,7 +13,10 @@ const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
     <S.HeaderWrapper {...props} colorTheme={colorTheme}>
       <S.Header>
         <Link href={'/'}>
-          <img src="/selab_logo.png" alt="selab-logo" />
+          <img
+            src={colorTheme === lightTheme ? 'selab_logo.png' : 'selab_logo_w.png'}
+            alt="selab-logo"
+          />
         </Link>
         <HeaderBtns currentTab={currentTab} />
         <nav>

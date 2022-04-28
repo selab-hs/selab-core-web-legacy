@@ -1,23 +1,24 @@
+import { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
-import { ChangeEvent } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
-import { CLIENT_ERROR, SERVER_ERROR } from '../../../apis/constants';
-import { Response } from '../../../apis/types';
-import { logInApi } from '../../../apis/users';
-import { storage } from '../../utils';
-import { SESSION_ID } from '../../utils/constants';
 
+import { RootState } from '../../../stores';
+import { fetchUserLogIn } from '../../../stores/users';
 import * as S from '../styles';
 import { Props } from './types';
 
 const SignInForm = ({ email, setIsModalOpen }: Props) => {
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const verifySignInData = yup.object().shape({
     password: yup.string().required('비밀번호를 입력해 주세요.'),
   });
+
+  const { isLoggedIn } = useSelector((state: RootState) => state.users);
 
   const {
     register,
@@ -28,37 +29,15 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ password }) => {
-    try {
-      const {
-        data: {
-          data: { token },
-        },
-      } = await logInApi({ email, password });
-      storage.set(SESSION_ID, token);
-      setIsModalOpen(false);
-      router.push('/');
-    } catch (e: any) {
-      const response = e.response as Response;
-      if (!response) return;
-
-      const {
-        status,
-        data: { message, code },
-      } = response;
-
-      console.error(message);
-      console.error(code);
-      if (status === 401) {
-        return alert('아이디 혹은 비밀번호가 틀렸습니다.');
-      }
-      if (status >= 400) {
-        return alert(CLIENT_ERROR);
-      }
-      if (status >= 500) {
-        return alert(SERVER_ERROR);
-      }
-    }
+    dispatch(fetchUserLogIn({ email, password }));
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) return;
+
+    setIsModalOpen(false);
+    router.push('/');
+  }, [isLoggedIn]);
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
@@ -68,6 +47,8 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
         placeholder="비밀번호를 입력해 주세요"
         {...register('password')}
         type="password"
+        autoFocus
+        autoComplete="on"
       />
       {errors.passwordConfirm && <S.ErrorMsg>{errors.passwordConfirm.message}</S.ErrorMsg>}
       <S.SubmitBtn type="submit">로그인 하기</S.SubmitBtn>

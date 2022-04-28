@@ -77,6 +77,7 @@ const SignUpForm = ({ email, setStep }: Props) => {
         placeholder="비밀번호를 입력해 주세요"
         type="password"
         autoComplete="on"
+        autoFocus
         {...register('password')}
       />
       {errors.password && <S.ErrorMsg>{errors.password.message}</S.ErrorMsg>}

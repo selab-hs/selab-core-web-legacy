@@ -9,6 +9,8 @@ import DynamicHeader from '../components/DynamicHeader';
 import { useRouter } from 'next/router';
 import { lightTheme, darkTheme, ColorTheme } from '../styles/theme';
 import { useDarkMode } from '../hooks/useDarkMode';
+import { Provider } from 'react-redux';
+import { store } from '../stores';
 
 interface ContextProps {
   colorTheme: ColorTheme;
@@ -48,27 +50,29 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [route]);
 
   return (
-    <ThemeContext.Provider value={{ colorTheme, toggleColorTheme }}>
-      <Global styles={GlobalStyle(colorTheme === lightTheme ? lightTheme : darkTheme)} />
-      <ThemeProvider theme={theme}>
-        {currentTab !== null && (
-          <>
-            <Header
-              currentTab={currentTab as number}
-              setCurrentTab={setCurrentTab}
-              menuArr={menuArr}
-            />
-            <DynamicHeader
-              currentTab={currentTab as number}
-              setCurrentTab={setCurrentTab}
-              menuArr={menuArr}
-            />
-          </>
-        )}
+    <Provider store={store}>
+      <ThemeContext.Provider value={{ colorTheme, toggleColorTheme }}>
+        <Global styles={GlobalStyle(colorTheme === lightTheme ? lightTheme : darkTheme)} />
+        <ThemeProvider theme={theme}>
+          {currentTab !== null && (
+            <>
+              <Header
+                currentTab={currentTab as number}
+                setCurrentTab={setCurrentTab}
+                menuArr={menuArr}
+              />
+              <DynamicHeader
+                currentTab={currentTab as number}
+                setCurrentTab={setCurrentTab}
+                menuArr={menuArr}
+              />
+            </>
+          )}
 
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </ThemeContext.Provider>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </ThemeContext.Provider>
+    </Provider>
   );
 }
 

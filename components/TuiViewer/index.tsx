@@ -27,14 +27,10 @@ import * as S from './style';
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
 import { ThemeContext } from '../../pages/_app';
 import { lightTheme } from '../../styles/theme';
-import axios from 'axios';
 import { FreePostType } from '../../pages/free-posts/types';
 import { useRouter } from 'next/router';
 import { timeWithHyphen } from '../utils/timeWithHyphen';
-
-// TODO: 추후 삭제 예정
-const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTU4MzIzfQ.bXy9dkOgEoN5Y-9bySizyEIjvhy-3MYpYTB7dqe1RXka81LU9EBbFEx9TG-f2ZbVNRloTfOwfeb-yduFmOyZqA';
+import { getSinglePostAPI } from '../../apis/posts';
 
 const TuiEditor = () => {
   const [freePost, setFreePost] = useState<FreePostType | null>(null);
@@ -44,13 +40,7 @@ const TuiEditor = () => {
 
   useEffect(() => {
     (async () => {
-      const response = await axios({
-        method: 'get',
-        url: `/api/v1/free-posts/${router.query.id}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await getSinglePostAPI(router.query.id as string);
       setFreePost(response.data.data);
     })();
   }, [router.query.id]);

@@ -8,10 +8,7 @@ import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
 import axios from 'axios';
-
-// TODO: 추후 삭제 예정
-export const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTU4MzIzfQ.bXy9dkOgEoN5Y-9bySizyEIjvhy-3MYpYTB7dqe1RXka81LU9EBbFEx9TG-f2ZbVNRloTfOwfeb-yduFmOyZqA';
+import { postSinglePostAPI } from '../../../apis/posts';
 
 const HeaderBtns = ({ currentTab }: Props) => {
   const { colorTheme } = useContext(ThemeContext);
@@ -40,16 +37,7 @@ const HeaderBtns = ({ currentTab }: Props) => {
 
     // TODO: 데이터 전송 하기
     try {
-      const response = await axios({
-        method: 'post',
-        url: '/api/v1/free-posts',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        data: { title, content },
-      });
-
+      const response = await postSinglePostAPI(title, content);
       router.push(`/free-posts/${response.data.data.id}`);
     } catch (err) {
       console.error(err);

@@ -1,23 +1,27 @@
 /* eslint-disable @next/next/link-passhref */
-import axios from 'axios';
 import Link from 'next/link';
 import * as S from './style';
 import { BiSearchAlt2 } from 'react-icons/bi';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { ThemeContext } from '../_app';
 import { timeForToday } from '../../components/utils/timeForToday';
 import { FreePostType } from './types';
-import { GetServerSideProps } from 'next';
+import { getPostsAPI } from '../../apis/posts';
 
-// TODO: 추후 삭제 예정
-axios.defaults.baseURL = 'http://3.35.64.22:8080';
-
-// TODO: 추후 삭제 예정
-export const token =
-  'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtaW5icjB0aGVyQGhzLmFjLmtyIiwiaXNzIjoic2VsYWIiLCJhdXRoIjoiUk9MRV9VU0VSIiwiZXhwIjoxNjUwOTU4MzIzfQ.bXy9dkOgEoN5Y-9bySizyEIjvhy-3MYpYTB7dqe1RXka81LU9EBbFEx9TG-f2ZbVNRloTfOwfeb-yduFmOyZqA';
-
-const FreePosts = ({ freePosts }: { freePosts: FreePostType[] }) => {
+const FreePosts = () => {
+  const [freePosts, setFreePosts] = useState<FreePostType[]>([]);
   const { colorTheme } = useContext(ThemeContext);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const response = await getPostsAPI();
+        setFreePosts(response.data.data.freePosts);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
 
   return (
     <S.FreePostsWrapper>
@@ -43,20 +47,6 @@ const FreePosts = ({ freePosts }: { freePosts: FreePostType[] }) => {
         })}
     </S.FreePostsWrapper>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await axios({
-    method: 'get',
-    url: '/api/v1/free-posts',
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-
-  console.log(response.data.data.freePosts);
-
-  return { props: { freePosts: response.data.data.freePosts } };
 };
 
 export default FreePosts;

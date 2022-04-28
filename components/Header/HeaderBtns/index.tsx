@@ -7,6 +7,7 @@ import SignUpAndSignInModal from '../../SignUpAndSignInModal';
 import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
+import axios from 'axios';
 
 // TODO: 추후 삭제 예정
 export const token =

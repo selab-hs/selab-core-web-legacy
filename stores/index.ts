@@ -1,10 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import users from './users';
+import { createWrapper } from 'next-redux-wrapper';
+import logger from 'redux-logger';
 
-export const store = configureStore({
-  reducer: {
-    users,
-  },
+import reducer from './modules';
+
+const makeStore = () =>
+  configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    devTools: process.env.NODE_ENV !== 'production',
+  });
+
+export const wrapper = createWrapper(makeStore, {
+  debug: process.env.NODE_ENV !== 'production',
 });
-
-export type RootState = ReturnType<typeof store.getState>;

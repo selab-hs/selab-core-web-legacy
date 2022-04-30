@@ -1,5 +1,5 @@
 import '../styles/globals.css';
-import React, { createContext, useLayoutEffect, useState } from 'react';
+import React, { createContext, useEffect, useLayoutEffect, useState } from 'react';
 import type { AppProps } from 'next/app';
 import { Global, ThemeProvider } from '@emotion/react';
 import { GlobalStyle } from '../styles/global-styles';
@@ -9,8 +9,7 @@ import DynamicHeader from '../components/DynamicHeader';
 import { useRouter } from 'next/router';
 import { lightTheme, darkTheme, ColorTheme } from '../styles/theme';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { Provider } from 'react-redux';
-import { store } from '../stores';
+import { wrapper } from '../stores';
 
 interface ContextProps {
   colorTheme: ColorTheme;
@@ -37,12 +36,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     { link: '/write', content: '글작성' },
   ];
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const { pathname } = route;
     const path = pathname.split('/')[1];
     if (path === undefined || path === '_error') {
       setCurrentTab(0);
-    } else if (path === 'free-posts') {
+    } else if (path === 'test') {
       setCurrentTab(1);
     } else if (path === 'write') {
       setCurrentTab(2);
@@ -50,30 +49,28 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, [route]);
 
   return (
-    <Provider store={store}>
-      <ThemeContext.Provider value={{ colorTheme, toggleColorTheme }}>
-        <Global styles={GlobalStyle(colorTheme === lightTheme ? lightTheme : darkTheme)} />
-        <ThemeProvider theme={theme}>
-          {currentTab !== null && (
-            <>
-              <Header
-                currentTab={currentTab as number}
-                setCurrentTab={setCurrentTab}
-                menuArr={menuArr}
-              />
-              <DynamicHeader
-                currentTab={currentTab as number}
-                setCurrentTab={setCurrentTab}
-                menuArr={menuArr}
-              />
-            </>
-          )}
+    <ThemeContext.Provider value={{ colorTheme, toggleColorTheme }}>
+      <Global styles={GlobalStyle(colorTheme === lightTheme ? lightTheme : darkTheme)} />
+      <ThemeProvider theme={theme}>
+        {currentTab !== null && (
+          <>
+            <Header
+              currentTab={currentTab as number}
+              setCurrentTab={setCurrentTab}
+              menuArr={menuArr}
+            />
+            <DynamicHeader
+              currentTab={currentTab as number}
+              setCurrentTab={setCurrentTab}
+              menuArr={menuArr}
+            />
+          </>
+        )}
 
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </ThemeContext.Provider>
-    </Provider>
+        <Component {...pageProps} />
+      </ThemeProvider>
+    </ThemeContext.Provider>
   );
 }
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);

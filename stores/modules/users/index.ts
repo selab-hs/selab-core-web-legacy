@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CLIENT_ERROR, SERVER_ERROR } from '../../apis/constants';
-import { Response } from '../../apis/types';
-import { logInApi } from '../../apis/users';
-import { LogInApiResponse, LogInParams } from '../../apis/users/types';
+import { CLIENT_ERROR, SERVER_ERROR } from '../../../apis/constants';
+import { Response } from '../../../apis/types';
+import { logInApi } from '../../../apis/users';
+import { LogInApiResponse, LogInParams } from '../../../apis/users/types';
 import { UserState } from './types';
 
 export const fetchUserLogIn = createAsyncThunk(

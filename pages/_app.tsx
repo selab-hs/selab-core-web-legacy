@@ -36,12 +36,12 @@ function MyApp({ Component, pageProps }: AppProps) {
     { link: '/write', content: '글작성' },
   ];
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const { pathname } = route;
     const path = pathname.split('/')[1];
     if (path === undefined || path === '_error') {
       setCurrentTab(0);
-    } else if (path === 'test') {
+    } else if (path === 'free-posts') {
       setCurrentTab(1);
     } else if (path === 'write') {
       setCurrentTab(2);

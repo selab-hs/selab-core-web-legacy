@@ -26,10 +26,10 @@ import { v4 } from 'uuid';
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
 import { deviceSize } from '../../styles/mediaQuery';
 import * as S from './style';
-import { storage } from '../utils';
-import { TEMPORARY_POSTS } from '../utils/constants';
 import { ThemeContext } from '../../pages/_app';
 import { lightTheme } from '../../styles/theme';
+import { storage } from '@components/utils';
+import { TEMPORARY_POSTS } from '@components/utils/constants';
 
 export default function TuiEditor() {
   const router = useRouter();

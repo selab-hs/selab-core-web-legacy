@@ -1,15 +1,15 @@
-import '../styles/globals.css';
 import React, { createContext } from 'react';
 import type { AppProps } from 'next/app';
 import { Global, ThemeProvider } from '@emotion/react';
+import '../styles/globals.css';
 import { GlobalStyle } from '../styles/global-styles';
 import { theme } from '../styles';
 import { lightTheme, darkTheme, ColorTheme } from '../styles/theme';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { wrapper } from '../stores';
-import { useHeaderTab } from './useHeaderTab';
 import Header from '@domains/Header';
 import DynamicHeader from '@domains/DynamicHeader';
+import { useHeaderTab } from './useHeaderTab';
 
 interface ContextProps {
   colorTheme: ColorTheme;

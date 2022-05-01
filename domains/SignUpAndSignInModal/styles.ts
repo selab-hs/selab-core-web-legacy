@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Modal from '../Modal';
+import Modal from '../../components/Modal';
 
 export const CuModal = styled(Modal)`
   max-height: calc(100vh - 150px);

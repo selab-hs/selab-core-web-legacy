@@ -1,14 +1,14 @@
 import { useRouter } from 'next/router';
 import { MouseEvent, useContext, useState } from 'react';
 import { ThemeContext } from '../../../pages/_app';
-import { storage } from '../../utils';
-import { TEMPORARY_POSTS } from '../../utils/constants';
-import SignUpAndSignInModal from '../../SignUpAndSignInModal';
 import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
 import axios from 'axios';
 import { postSinglePostAPI } from '../../../apis/posts';
+import { storage } from '@components/utils';
+import { TEMPORARY_POSTS } from '@components/utils/constants';
+import SignUpAndSignInModal from '@domains/SignUpAndSignInModal';
 
 const HeaderBtns = ({ currentTab }: Props) => {
   const { colorTheme } = useContext(ThemeContext);
@@ -62,13 +62,8 @@ const HeaderBtns = ({ currentTab }: Props) => {
       {currentTab !== 2 && (
         <>
           <S.LeftBtn currentTab={currentTab}>로그인</S.LeftBtn>
-
           <S.RightBtn onClick={handleSignUp}>회원가입</S.RightBtn>
-          {isModalOpen && (
-            <>
-              <SignUpAndSignInModal setIsModalOpen={setIsModalOpen} />
-            </>
-          )}
+          {isModalOpen && <SignUpAndSignInModal setIsModalOpen={setIsModalOpen} />}
         </>
       )}
     </S.BtnWrapper>

@@ -5,10 +5,10 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import * as yup from 'yup';
 
-import { fetchUserLogIn } from '../../../stores/modules/users';
 import * as S from '../styles';
 import { Props } from './types';
-import { RootState } from '../../../stores/modules';
+import { RootState } from '@stores/modules';
+import { fetchUserLogIn } from '@stores/modules/users';
 
 const SignInForm = ({ email, setIsModalOpen }: Props) => {
   const router = useRouter();

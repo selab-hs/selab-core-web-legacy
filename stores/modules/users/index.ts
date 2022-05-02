@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { CLIENT_ERROR, SERVER_ERROR } from '../../../apis/constants';
-import { Response } from '../../../apis/types';
-import { logInApi } from '../../../apis/users';
-import { LogInApiResponse, LogInParams } from '../../../apis/users/types';
 import { UserState } from './types';
+import { LogInParams, LogInApiResponse } from '@apis/users/types';
+import { logInApi } from '@apis/users';
+import { Response } from '@apis/types';
+import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
 
 export const fetchUserLogIn = createAsyncThunk(
   'users/fetchUserLogIn',
@@ -18,16 +18,20 @@ export const fetchUserLogIn = createAsyncThunk(
         status,
         data: { message, code },
       } = response;
-      console.error(message);
-      console.error(code);
+      // console.error(message);
+      // console.error(code);
+
       if (status === 401) {
-        return alert('아이디 혹은 비밀번호가 틀렸습니다.');
+        alert('아이디 혹은 비밀번호가 틀렸습니다.');
+        return Promise.reject();
       }
       if (status >= 400) {
-        return alert(CLIENT_ERROR);
+        alert(CLIENT_ERROR);
+        return Promise.reject();
       }
       if (status >= 500) {
-        return alert(SERVER_ERROR);
+        alert(SERVER_ERROR);
+        return Promise.reject();
       }
     }
   },
@@ -47,6 +51,10 @@ const users = createSlice({
     ) => {
       state.isLoggedIn = true;
       state.token = action.payload.data.token;
+    },
+    [fetchUserLogIn.rejected.type]: (state: UserState) => {
+      state.isLoggedIn = false;
+      state.token = '';
     },
   },
 });

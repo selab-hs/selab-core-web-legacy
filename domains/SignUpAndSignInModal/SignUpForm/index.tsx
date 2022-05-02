@@ -1,9 +1,9 @@
+import { Response } from '@apis/types';
+import { signUpApi } from '@apis/users';
+import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
-import { CLIENT_ERROR, SERVER_ERROR } from '../../../apis/constants';
-import { Response } from '../../../apis/types';
-import { signUpApi } from '../../../apis/users';
 
 import * as S from '../styles';
 import { Props } from './types';

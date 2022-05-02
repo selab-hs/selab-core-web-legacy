@@ -10,6 +10,8 @@ export const CuModal = styled(Modal)`
   &::-webkit-scrollbar {
     display: none;
   }
+
+  background-color: ${({ theme: { colors } }) => colors.modalBg};
 `;
 
 export const CloseBtn = styled.button`
@@ -26,6 +28,8 @@ export const Input = styled.input`
   width: 360px;
   height: 50px;
   padding: 15px;
+  color: ${({ theme: { colors } }) => colors.black};
+  background-color: ${({ theme: { colors } }) => colors.inputBackground};
   border: ${({ theme: { colors } }) => `1px solid ${colors.gray50}`};
   border-radius: 5px;
 
@@ -36,11 +40,11 @@ export const Input = styled.input`
 export const Label = styled.label`
   margin: 11px 0;
   font-weight: 400;
-  color: ${({ theme: { colors } }) => `${colors.gray100}`};
+  color: ${({ theme: { colors } }) => colors.gray100};
 `;
 export const ErrorMsg = styled.p`
   margin-top: 11px;
-  color: ${({ theme: { colors } }) => `${colors.red}`};
+  color: ${({ theme: { colors } }) => colors.red};
 `;
 
 export const Title = styled.h1`

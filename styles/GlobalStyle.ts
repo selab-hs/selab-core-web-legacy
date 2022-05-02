@@ -91,6 +91,12 @@ export const GlobalStyle = (props: Theme) =>
       scroll-behavior: smooth;
     }
 
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
     /* HTML5 display-role reset for older browsers */
     article,
     aside,

@@ -2,7 +2,8 @@ const storage = {
   get: <T>(key: string) => {
     try {
       const item = localStorage.getItem(key);
-      return item ? (JSON.parse(item) as T) : undefined;
+      if (!item) return undefined;
+      return typeof item === 'string' ? item : (JSON.parse(item) as T);
     } catch (e) {
       console.error(e);
       return undefined;

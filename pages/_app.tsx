@@ -1,14 +1,13 @@
 import React, { createContext } from 'react';
 import type { AppProps } from 'next/app';
 import { Global, ThemeProvider } from '@emotion/react';
-import '../styles/globals.css';
-import { GlobalStyle } from '../styles/global-styles';
 import { lightTheme, darkTheme, ColorTheme } from '../styles/theme';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { wrapper } from '../stores';
 import { useHeaderTab } from './useHeaderTab';
 import { useTheme } from './useTheme';
 import { Header, DynamicHeader } from '@domains/index';
+import { GlobalStyle } from '@styles/GlobalStyle';
 
 interface ContextProps {
   colorTheme: ColorTheme;
@@ -37,7 +36,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <ThemeContext.Provider value={{ colorTheme, toggleColorTheme }}>
-      <Global styles={GlobalStyle(colorTheme === lightTheme ? lightTheme : darkTheme)} />
+      <Global styles={GlobalStyle(theme)} />
       <ThemeProvider theme={theme}>
         {currentTab !== null && (
           <>

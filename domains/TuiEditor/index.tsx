@@ -24,7 +24,7 @@ import { useRouter } from 'next/router';
 import { v4 } from 'uuid';
 
 import { useGetWindowSize } from '../../hooks/useGetWindowSize';
-import { deviceSize } from '../../styles/mediaQuery';
+import { deviceSize } from '../../styles/theme/mediaQuery';
 import * as S from './style';
 import { ThemeContext } from '../../pages/_app';
 import { lightTheme } from '../../styles/theme';

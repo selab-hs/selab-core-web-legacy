@@ -1,7 +1,6 @@
-import { css } from '@emotion/react';
-import { ColorTheme } from '../styles/theme';
+import { css, Theme } from '@emotion/react';
 
-export const GlobalStyle = (props: ColorTheme) =>
+export const GlobalStyle = (props: Theme) =>
   css`
     html,
     body,
@@ -177,7 +176,7 @@ export const GlobalStyle = (props: ColorTheme) =>
         'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic',
         sans-serif;
       line-height: 1;
-      color: ${props.MAIN};
-      background: ${props.BACKGROUND};
+      color: ${props.colors.black};
+      background: ${props.colors.background};
     }
   `;

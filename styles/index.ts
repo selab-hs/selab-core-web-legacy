@@ -1,5 +1,5 @@
-import { mediaQuery } from './mediaQuery';
-import { colors } from './colors';
+import { mediaQuery } from './theme/mediaQuery';
+import { colors } from './theme/colors';
 
 interface ThemeType {
   mediaQuery: typeof mediaQuery;

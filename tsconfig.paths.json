@@ -11,6 +11,7 @@
       "@pages/*": ["pages/*"],
       "@public/*": ["public/*"],
       "@styles/*": ["styles/*"],
+      "@stores/*": ["stores/*"],
     }
   }
 }

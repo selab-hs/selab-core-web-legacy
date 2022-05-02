@@ -4,6 +4,8 @@ const isObject = (item: string) => {
 
 const storage = {
   get: <T>(key: string) => {
+    if (typeof window === 'undefined') return undefined;
+
     try {
       const item = localStorage.getItem(key);
       if (!item) return undefined;

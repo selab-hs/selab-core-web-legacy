@@ -1,9 +1,13 @@
+const isObject = (item: string) => {
+  return item.includes('{');
+};
+
 const storage = {
   get: <T>(key: string) => {
     try {
       const item = localStorage.getItem(key);
       if (!item) return undefined;
-      return typeof item === 'string' ? item : (JSON.parse(item) as T);
+      return isObject(item) ? (JSON.parse(item) as T) : item;
     } catch (e) {
       console.error(e);
       return undefined;

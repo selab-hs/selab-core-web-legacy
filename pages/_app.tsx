@@ -3,13 +3,12 @@ import type { AppProps } from 'next/app';
 import { Global, ThemeProvider } from '@emotion/react';
 import '../styles/globals.css';
 import { GlobalStyle } from '../styles/global-styles';
-import { theme } from '../styles';
 import { lightTheme, darkTheme, ColorTheme } from '../styles/theme';
 import { useDarkMode } from '../hooks/useDarkMode';
 import { wrapper } from '../stores';
-import Header from '@domains/Header';
-import DynamicHeader from '@domains/DynamicHeader';
 import { useHeaderTab } from './useHeaderTab';
+import { useTheme } from './useTheme';
+import { Header, DynamicHeader } from '@domains/index';
 
 interface ContextProps {
   colorTheme: ColorTheme;
@@ -34,6 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     { link: '/free-posts', content: '게시글' },
     { link: '/write', content: '글작성' },
   ];
+  const theme = useTheme();
 
   return (
     <ThemeContext.Provider value={{ colorTheme, toggleColorTheme }}>

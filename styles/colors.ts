@@ -1,6 +1,24 @@
 export const colors = {
-  gray50: '#e1e2e3',
-  gray100: '#767676',
-  blue: '#36f',
-  red: '#bf1650',
+  light: {
+    gray50: '#e1e2e3',
+    gray100: '#767676',
+    blue: '#36f',
+    red: '#bf1650',
+    white: '#fff',
+    black: '#000',
+    background: '#fdfdff',
+    inputBackground: '#fdfdff',
+    border: '#d6d6d6',
+  },
+  dark: {
+    gray50: '#e1e2e3',
+    gray100: '#767676',
+    blue: '#36f',
+    red: 'blue',
+    white: '#000',
+    black: '#fff',
+    background: '#202124',
+    inputBackground: '#262729',
+    border: 'rgba(214, 214, 214, 0.18)',
+  },
 };

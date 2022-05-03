@@ -2,7 +2,6 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import * as yup from 'yup';
 
 import * as S from '../styles';
 import { Props } from './types';
@@ -10,14 +9,11 @@ import { RootState } from '@stores/modules';
 import { fetchUserLogIn } from '@stores/modules/users';
 import { storage } from '@components/utils';
 import { SESSION_ID } from '@constants/user-constants';
+import { verifySignInInputs } from '../verifyInputs';
 
 const SignInForm = ({ email, setIsModalOpen }: Props) => {
   const router = useRouter();
   const dispatch = useDispatch();
-
-  const verifySignInData = yup.object().shape({
-    password: yup.string().required('비밀번호를 입력해 주세요.'),
-  });
 
   const { isLoggedIn, token } = useSelector((state: RootState) => state.users);
 
@@ -26,7 +22,7 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(verifySignInData),
+    resolver: yupResolver(verifySignInInputs),
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ password }) => {
@@ -40,6 +36,8 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
+      <S.Title>로그인</S.Title>
+
       <S.Label htmlFor="password">비밀번호</S.Label>
       <S.Input
         id="password"
@@ -50,6 +48,7 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
         autoComplete="on"
       />
       {errors.passwordConfirm && <S.ErrorMsg>{errors.passwordConfirm.message}</S.ErrorMsg>}
+
       <S.SubmitBtn type="submit">로그인 하기</S.SubmitBtn>
     </S.Form>
   );

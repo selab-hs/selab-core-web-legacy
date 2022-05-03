@@ -1,4 +1,3 @@
-import * as yup from 'yup';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -6,18 +5,15 @@ import * as S from '../styles';
 import { Props } from './types';
 import { isMemberExist } from '@apis/users';
 import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
+import { verifyIsMemberInputs } from '../verifyInputs';
 
 const VerifyIsMemberModal = ({ setStep, setEmail }: Props) => {
-  const verifyEmail = yup.object().shape({
-    email: yup.string().required('이메일을 입력해 주세요.').email('이메일 양식이 아닙니다.'),
-  });
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(verifyEmail),
+    resolver: yupResolver(verifyIsMemberInputs),
   });
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ email }) => {

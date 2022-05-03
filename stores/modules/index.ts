@@ -1,7 +1,7 @@
 import { CombinedState, combineReducers } from '@reduxjs/toolkit';
 import { HYDRATE } from 'next-redux-wrapper';
 import { CombineState } from './types';
-import users from './users';
+import { users } from './users';
 
 const rootReducer = (state: any, action: any): CombinedState<CombineState> => {
   if (action.type === HYDRATE) {
@@ -11,7 +11,7 @@ const rootReducer = (state: any, action: any): CombinedState<CombineState> => {
     };
   }
   return combineReducers({
-    users,
+    users: users.reducer,
   })(state, action);
 };
 

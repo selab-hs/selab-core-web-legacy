@@ -37,13 +37,27 @@ export const fetchUserLogIn = createAsyncThunk(
   },
 );
 
-const users = createSlice({
+export const users = createSlice({
   name: 'users',
   initialState: {
     token: '',
     isLoggedIn: false,
   } as UserState,
-  reducers: {},
+  reducers: {
+    logOut: (state: UserState) => {
+      state.token = '';
+      state.isLoggedIn = false;
+    },
+    logInWhenReload: {
+      prepare: (token: string) => ({
+        payload: { token },
+      }),
+      reducer: (state: UserState, action: PayloadAction<{ token: string }>) => {
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      },
+    },
+  },
   extraReducers: {
     [fetchUserLogIn.fulfilled.type]: (
       state: UserState,
@@ -58,5 +72,3 @@ const users = createSlice({
     },
   },
 });
-
-export default users.reducer;

@@ -1,13 +1,14 @@
 import React, { createContext } from 'react';
 import type { AppProps } from 'next/app';
 import { Global, ThemeProvider } from '@emotion/react';
-import { lightTheme, darkTheme, ColorTheme } from '../styles/theme';
+import { lightTheme, ColorTheme } from '../styles/theme';
 import { useDarkMode } from '../hooks/useDarkMode';
-import { wrapper } from '../stores';
 import { useHeaderTab } from './useHeaderTab';
 import { useTheme } from './useTheme';
 import { Header, DynamicHeader } from '@domains/index';
 import { GlobalStyle } from '@styles/GlobalStyle';
+import { wrapper } from '@stores/index';
+import { useSetUserStoreToken } from './useSetUserStoreToken';
 
 interface ContextProps {
   colorTheme: ColorTheme;
@@ -26,6 +27,7 @@ export const ThemeContext = createContext<ContextProps>({
 function MyApp({ Component, pageProps }: AppProps) {
   const { colorTheme, toggleColorTheme } = useDarkMode();
   const [currentTab, setCurrentTab] = useHeaderTab();
+  useSetUserStoreToken();
 
   const menuArr = [
     { link: '/', content: '홈' },

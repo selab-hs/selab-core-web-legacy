@@ -1,23 +1,28 @@
-import { useRouter } from 'next/router';
 import { MouseEvent, useContext, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useDispatch } from 'react-redux';
+
 import { ThemeContext } from '../../../pages/_app';
 import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
-import axios from 'axios';
-import { postSinglePostAPI } from '../../../apis/posts';
 import { storage } from '@components/utils';
 import { TEMPORARY_POSTS } from '@components/utils/constants';
 import SignUpAndSignInModal from '@domains/SignUpAndSignInModal';
+import { users } from '@stores/modules/users';
+import { SESSION_ID } from '@constants/user-constants';
+import { useLogInState } from './useIsLoggedIn';
+import { postSinglePostAPI } from '@apis/posts';
 
 const HeaderBtns = ({ currentTab }: Props) => {
   const { colorTheme } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useLogInState();
+
   const router = useRouter();
 
-  const loginBtn = () => {
-    console.log('click LoginBtn');
-  };
+  const dispatch = useDispatch();
+
   const handleBackBtn = () => {
     // TODO: 로컬스토리지에 저장
     alert('임시저장이 완료되었습니다.');
@@ -43,8 +48,13 @@ const HeaderBtns = ({ currentTab }: Props) => {
       console.error(err);
     }
   };
-  const handleSignUp = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleSignUpAndLogOutBtn = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
+    if (isLoggedIn) {
+      storage.remove(SESSION_ID);
+      setIsLoggedIn(undefined);
+      return dispatch(users.actions.logOut());
+    }
     setIsModalOpen(true);
   };
 
@@ -61,8 +71,9 @@ const HeaderBtns = ({ currentTab }: Props) => {
       )}
       {currentTab !== 2 && (
         <>
-          <S.LeftBtn currentTab={currentTab}>로그인</S.LeftBtn>
-          <S.RightBtn onClick={handleSignUp}>회원가입</S.RightBtn>
+          <S.RightBtn onClick={handleSignUpAndLogOutBtn}>
+            {isLoggedIn ? '로그아웃' : '회원가입 / 로그인'}
+          </S.RightBtn>
           {isModalOpen && <SignUpAndSignInModal setIsModalOpen={setIsModalOpen} />}
         </>
       )}

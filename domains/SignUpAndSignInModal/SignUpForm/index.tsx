@@ -19,8 +19,8 @@ const SignUpForm = ({ email, setStep }: Props) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ password, studentId, name, nickname }) => {
     try {
-      const { data } = await signUpApi({ email, password, studentId, name, nickname });
-      if (data.data.email) {
+      const { status } = await signUpApi({ email, password, studentId, name, nickname });
+      if (status === 204) {
         setStep(1);
       }
     } catch (e: any) {
@@ -31,8 +31,8 @@ const SignUpForm = ({ email, setStep }: Props) => {
         status,
         data: { message, code },
       } = response;
-      console.error(message);
-      console.error(code);
+      // console.error(message);
+      // console.error(code);
 
       if (status >= 400) {
         return alert(CLIENT_ERROR);

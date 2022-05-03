@@ -19,21 +19,17 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
-import { MutableRefObject, useContext, useEffect, useRef, useState } from 'react';
-import { useRouter } from 'next/router';
+import { MutableRefObject, useContext, useEffect, useRef } from 'react';
 import { v4 } from 'uuid';
 
-import { useGetWindowSize } from '../../hooks/useGetWindowSize';
-import { deviceSize } from '../../styles/theme/mediaQuery';
+import { useGetWindowSize } from '@hooks/useGetWindowSize';
 import * as S from './style';
-import { ThemeContext } from '../../pages/_app';
-import { lightTheme } from '../../styles/theme';
 import { storage } from '@components/utils';
 import { TEMPORARY_POSTS } from '@components/utils/constants';
+import { ThemeContext } from '@pages/_app';
+import { deviceSize } from '@styles/theme/mediaQuery';
 
 export default function TuiEditor() {
-  const router = useRouter();
-  const [editorData, setEditorData] = useState<any>();
   const titleRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>();
   const timeoutId = useRef(0);
@@ -78,7 +74,7 @@ export default function TuiEditor() {
       '.toastui-editor-md-tab-container',
     ) as HTMLElement;
     const el = document.getElementsByClassName('toastui-editor-defaultUI')[0];
-    if (colorTheme === lightTheme) {
+    if (storage.get('theme') === 'light') {
       el.classList.remove('toastui-editor-dark');
       mdTabContainer.style.background = '#fdfdff';
       mdTabContainer.style.borderBottomColor = '#fdfdff';
@@ -91,7 +87,7 @@ export default function TuiEditor() {
 
   return (
     <S.Wrapper>
-      <S.Title placeholder="제목을 입력하세요" ref={titleRef} colorTheme={colorTheme} />
+      <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
       <Editor
         ref={editorRef as MutableRefObject<Editor>}
         height="100%"

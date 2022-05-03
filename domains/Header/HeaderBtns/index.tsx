@@ -1,17 +1,15 @@
 import { useRouter } from 'next/router';
-import { MouseEvent, useContext, useState } from 'react';
-import { ThemeContext } from '../../../pages/_app';
+import { MouseEvent, useState } from 'react';
 import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
 import axios from 'axios';
-import { postSinglePostAPI } from '../../../apis/posts';
 import { storage } from '@components/utils';
 import { TEMPORARY_POSTS } from '@components/utils/constants';
 import SignUpAndSignInModal from '@domains/SignUpAndSignInModal';
+import { postSinglePostAPI } from '@apis/posts';
 
 const HeaderBtns = ({ currentTab }: Props) => {
-  const { colorTheme } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const router = useRouter();
 
@@ -49,7 +47,7 @@ const HeaderBtns = ({ currentTab }: Props) => {
   };
 
   return (
-    <S.BtnWrapper colorTheme={colorTheme} currentTab={currentTab}>
+    <S.BtnWrapper currentTab={currentTab}>
       <DarkModeToggle />
       {currentTab === 2 && (
         <>

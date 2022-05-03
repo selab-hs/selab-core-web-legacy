@@ -11,13 +11,13 @@ import { TEMPORARY_POSTS } from '@components/utils/constants';
 import SignUpAndSignInModal from '@domains/SignUpAndSignInModal';
 import { users } from '@stores/modules/users';
 import { SESSION_ID } from '@constants/user-constants';
-import { useLogInState } from './useIsLoggedIn';
+import { useIsLoggedIn } from './useIsLoggedIn';
 import { postSinglePostAPI } from '@apis/posts';
 
 const HeaderBtns = ({ currentTab }: Props) => {
   const { colorTheme } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useLogInState();
+  const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
 
   const router = useRouter();
 

@@ -1,21 +1,17 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import * as S from '../styles';
 import { Props } from './types';
-import { RootState } from '@stores/modules';
 import { fetchUserLogIn } from '@stores/modules/users';
-import { storage } from '@components/utils';
-import { SESSION_ID } from '@constants/user-constants';
 import { verifySignInInputs } from '../verifyInputs';
+import { useUpdateToken } from './useUpdateToken';
 
 const SignInForm = ({ email, setIsModalOpen }: Props) => {
-  const router = useRouter();
   const dispatch = useDispatch();
-
-  const { isLoggedIn, token } = useSelector((state: RootState) => state.users);
+  useUpdateToken(setIsModalOpen);
 
   const {
     register,
@@ -27,11 +23,6 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ password }) => {
     dispatch(fetchUserLogIn({ email, password }));
-    if (!isLoggedIn) return;
-
-    storage.set(SESSION_ID, token);
-    setIsModalOpen(false);
-    router.push('/');
   };
 
   return (

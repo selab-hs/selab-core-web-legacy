@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
@@ -9,6 +8,8 @@ import * as S from '../styles';
 import { Props } from './types';
 import { RootState } from '@stores/modules';
 import { fetchUserLogIn } from '@stores/modules/users';
+import { storage } from '@components/utils';
+import { SESSION_ID } from '@constants/user-constants';
 
 const SignInForm = ({ email, setIsModalOpen }: Props) => {
   const router = useRouter();
@@ -18,7 +19,7 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
     password: yup.string().required('비밀번호를 입력해 주세요.'),
   });
 
-  const { isLoggedIn } = useSelector((state: RootState) => state.users);
+  const { isLoggedIn, token } = useSelector((state: RootState) => state.users);
 
   const {
     register,
@@ -30,14 +31,12 @@ const SignInForm = ({ email, setIsModalOpen }: Props) => {
 
   const onSubmit: SubmitHandler<FieldValues> = async ({ password }) => {
     dispatch(fetchUserLogIn({ email, password }));
-  };
-
-  useEffect(() => {
     if (!isLoggedIn) return;
 
+    storage.set(SESSION_ID, token);
     setIsModalOpen(false);
     router.push('/');
-  }, [isLoggedIn]);
+  };
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>

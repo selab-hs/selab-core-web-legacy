@@ -23,6 +23,13 @@ const storage = {
       console.error(e);
     }
   },
+  remove: (key: string) => {
+    try {
+      localStorage.removeItem(key);
+    } catch (e) {
+      console.error(e);
+    }
+  },
 };
 
 export default storage;

@@ -3,9 +3,9 @@ import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import * as S from '../styles';
-import { isMemberExist } from '../../../apis/users';
-import { CLIENT_ERROR, SERVER_ERROR } from '../../../apis/constants';
 import { Props } from './types';
+import { isMemberExist } from '@apis/users';
+import { CLIENT_ERROR, SERVER_ERROR } from '@apis/constants';
 
 const VerifyIsMemberModal = ({ setStep, setEmail }: Props) => {
   const verifyEmail = yup.object().shape({

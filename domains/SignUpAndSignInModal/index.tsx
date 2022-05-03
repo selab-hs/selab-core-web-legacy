@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Props } from './types';
+import { GrFormClose } from 'react-icons/gr';
 import * as S from './styles';
 import VerifyIsMemberModal from './VerifyIsMemberModal';
 import SignUpForm from './SignUpForm';
@@ -15,7 +16,9 @@ const SignUpAndSignInModal = ({ setIsModalOpen }: Props) => {
 
   return (
     <S.CuModal setIsModalOpen={setIsModalOpen}>
-      <S.CloseBtn onClick={handleCloseBtn}>x</S.CloseBtn>
+      <S.CloseBtn onClick={handleCloseBtn}>
+        <GrFormClose size={20} cursor="pointer" />
+      </S.CloseBtn>
       {step === 0 && <VerifyIsMemberModal setStep={setStep} setEmail={setEmail} />}
       {step === 1 && <SignInForm setIsModalOpen={setIsModalOpen} email={email} />}
       {step === 2 && <SignUpForm email={email} setStep={setStep} />}

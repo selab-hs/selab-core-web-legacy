@@ -1,26 +1,24 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable @next/next/link-passhref */
 import Link from 'next/link';
 import { Props } from './types';
 import * as S from './style';
 import HeaderBtns from './HeaderBtns';
-import { useContext } from 'react';
-import { ThemeContext } from '../../pages/_app';
-import { lightTheme } from '../../styles/theme';
+import { storage } from '@components/utils';
 
 const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
-  const { colorTheme } = useContext(ThemeContext);
-
   return (
-    <S.HeaderWrapper {...props} colorTheme={colorTheme}>
+    <S.HeaderWrapper {...props}>
       <S.Header>
         <Link href={'/'}>
           <img
-            src={colorTheme === lightTheme ? 'selab_logo.png' : 'selab_logo_w.png'}
+            src={storage.get('theme') === 'light' ? 'selab_logo.png' : 'selab_logo_w.png'}
             alt="selab-logo"
           />
         </Link>
         <HeaderBtns currentTab={currentTab} />
         <nav>
-          <S.Ul colorTheme={colorTheme}>
+          <S.Ul>
             {menuArr.map((menu, index) => (
               <li
                 key={index}

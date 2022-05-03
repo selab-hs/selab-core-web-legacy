@@ -1,7 +1,6 @@
 import styled from '@emotion/styled';
-import { ColorTheme } from '../../../styles/theme';
 
-export const BtnWrapper = styled.div<{ colorTheme: ColorTheme; currentTab: number }>`
+export const BtnWrapper = styled.div<{ currentTab: number }>`
   position: absolute;
   top: 0;
   right: 0;
@@ -17,7 +16,7 @@ export const BtnWrapper = styled.div<{ colorTheme: ColorTheme; currentTab: numbe
     line-height: 1.75rem;
   }
 
-  color: ${({ colorTheme, currentTab }) => (currentTab !== 2 ? colorTheme.MAIN : colorTheme.SUB)};
+  color: ${({ theme, currentTab }) => (currentTab !== 2 ? theme.colors.black : theme.colors.white)};
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
     position: absolute;
     top: 25px;

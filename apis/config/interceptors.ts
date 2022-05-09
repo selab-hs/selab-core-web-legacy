@@ -1,6 +1,6 @@
+import { SESSION_ID } from '@constants/user-constants';
 import { AxiosInstance } from 'axios';
 import { storage } from '../../components/utils';
-import { SESSION_ID } from '../../components/utils/constants';
 
 export const authInterceptor = (instance: AxiosInstance) => {
   instance.interceptors.request.use(

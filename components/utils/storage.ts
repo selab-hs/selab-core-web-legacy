@@ -1,7 +1,3 @@
-const isObject = (item: string) => {
-  return item.includes('{');
-};
-
 const storage = {
   get: <T>(key: string) => {
     if (typeof window === 'undefined') return undefined;
@@ -9,7 +5,7 @@ const storage = {
     try {
       const item = localStorage.getItem(key);
       if (!item) return undefined;
-      return isObject(item) ? (JSON.parse(item) as T) : item;
+      return JSON.parse(item) as T;
     } catch (e) {
       console.error(e);
       return undefined;

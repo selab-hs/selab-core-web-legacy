@@ -1,3 +1,4 @@
+import { storage } from '@components/utils';
 import { useEffect, useState } from 'react';
 import { lightTheme, darkTheme, ColorTheme } from '../styles/theme';
 
@@ -5,9 +6,7 @@ export const useDarkMode = () => {
   const [colorTheme, setColorTheme] = useState<ColorTheme>(lightTheme);
 
   const setMode = (mode: ColorTheme) => {
-    mode === lightTheme
-      ? window.localStorage.setItem('theme', 'light')
-      : window.localStorage.setItem('theme', 'dark');
+    mode === lightTheme ? storage.set('theme', 'light') : storage.set('theme', 'dark');
     setColorTheme(mode);
   };
 

@@ -24,13 +24,13 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { BsFillHeartFill, BsLink45Deg } from 'react-icons/bs';
 import { BiCommentDetail } from 'react-icons/bi';
 import * as S from './style';
-import { useGetWindowSize } from '../../hooks/useGetWindowSize';
-import { ThemeContext } from '../../pages/_app';
-import { lightTheme } from '../../styles/theme';
-import { FreePostType } from '../../pages/free-posts/types';
 import { useRouter } from 'next/router';
-import { timeWithHyphen } from '../utils/timeWithHyphen';
-import { getSinglePostAPI } from '../../apis/posts';
+import { timeWithHyphen } from '@components/utils/timeWithHyphen';
+import { FreePostType } from '@pages/free-posts/types';
+import { ThemeContext } from '@pages/_app';
+import { getSinglePostAPI } from '@apis/posts';
+import { useGetWindowSize } from '@hooks/useGetWindowSize';
+import { storage } from '@components/utils';
 
 const TuiEditor = () => {
   const [freePost, setFreePost] = useState<FreePostType | null>(null);
@@ -52,7 +52,7 @@ const TuiEditor = () => {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (colorTheme === lightTheme) {
+    if (storage.get('theme') === 'light') {
       el.classList.remove('toastui-editor-dark');
     } else {
       el.classList.add('toastui-editor-dark');

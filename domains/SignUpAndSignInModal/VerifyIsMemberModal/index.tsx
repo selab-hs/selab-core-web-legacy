@@ -4,8 +4,8 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import * as S from '../styles';
 import { Props } from './types';
 import { isMemberExist } from '@apis/users';
-import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
 import { verifyIsMemberInputs } from '../verifyInputs';
+import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
 
 const VerifyIsMemberModal = ({ setStep, setEmail }: Props) => {
   const {

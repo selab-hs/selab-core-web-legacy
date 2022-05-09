@@ -1,5 +1,4 @@
 import styled from '@emotion/styled';
-import { ToggleProps } from '../Header/HeaderBtns/DarkModeToggle/types';
 
 export const Wrapper = styled.div`
   height: calc(100vh - 128px - 5.7rem);
@@ -9,14 +8,14 @@ export const Wrapper = styled.div`
   }
 `;
 
-export const Title = styled.input<ToggleProps>`
+export const Title = styled.input`
   box-sizing: border-box;
   width: 100%;
   height: 5.7rem;
   padding: 0 2rem;
   font-size: 2.7rem;
-  color: ${({ colorTheme }) => colorTheme.MAIN};
-  background: ${({ colorTheme }) => colorTheme.BACKGROUND};
+  color: ${({ theme }) => theme.colors.black};
+  background: ${({ theme }) => theme.colors.background};
 
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
     height: 4.7rem;

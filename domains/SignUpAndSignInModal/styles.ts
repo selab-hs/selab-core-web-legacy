@@ -15,9 +15,8 @@ export const CuModal = styled(Modal)`
 `;
 
 export const CloseBtn = styled.button`
-  margin: 0 0 20px 100%;
-  font-size: 20px;
-  color: lightgray;
+  margin: 0 0 0 97%;
+  opacity: 0.4;
 `;
 export const Form = styled.form`
   box-sizing: border-box;

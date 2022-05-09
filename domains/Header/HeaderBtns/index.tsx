@@ -1,21 +1,19 @@
-import { MouseEvent, useContext, useState } from 'react';
 import { useRouter } from 'next/router';
+import { MouseEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { ThemeContext } from '../../../pages/_app';
 import DarkModeToggle from './DarkModeToggle';
 import * as S from './style';
 import { Props } from './types';
 import { storage } from '@components/utils';
 import { TEMPORARY_POSTS } from '@components/utils/constants';
 import SignUpAndSignInModal from '@domains/SignUpAndSignInModal';
-import { users } from '@stores/modules/users';
-import { SESSION_ID } from '@constants/user-constants';
 import { useIsLoggedIn } from './useIsLoggedIn';
 import { postSinglePostAPI } from '@apis/posts';
+import { SESSION_ID } from '@constants/user-constants';
+import { users } from '@stores/modules/users';
 
 const HeaderBtns = ({ currentTab }: Props) => {
-  const { colorTheme } = useContext(ThemeContext);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
 
@@ -59,7 +57,7 @@ const HeaderBtns = ({ currentTab }: Props) => {
   };
 
   return (
-    <S.BtnWrapper colorTheme={colorTheme} currentTab={currentTab}>
+    <S.BtnWrapper currentTab={currentTab}>
       <DarkModeToggle />
       {currentTab === 2 && (
         <>

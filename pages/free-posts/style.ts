@@ -1,9 +1,4 @@
 import styled from '@emotion/styled';
-import { ColorTheme } from '../../styles/theme';
-
-interface ToggleProps {
-  colorTheme: ColorTheme;
-}
 
 export const FreePostsWrapper = styled.div`
   position: relative;
@@ -28,15 +23,15 @@ export const SearchWrapper = styled.div`
   margin: 0.5rem auto 0;
 `;
 
-export const Search = styled.input<ToggleProps>`
+export const Search = styled.input`
   width: 100%;
   height: 36px;
   padding: 8px 48px 8px 16px;
   font-size: 14px;
   line-height: 20px;
-  color: ${({ colorTheme }) => colorTheme.MAIN};
-  background: ${({ colorTheme }) => colorTheme.SUBBACKGROUND};
-  border: 1px solid ${({ colorTheme }) => colorTheme.BORDER};
+  color: ${({ theme }) => theme.colors.black};
+  background: ${({ theme }) => theme.colors.inputBackground};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: 20px;
 `;
 
@@ -49,12 +44,12 @@ export const SearchSubmit = styled.button`
   opacity: 0.4;
 `;
 
-export const Post = styled.div<ToggleProps>`
+export const Post = styled.div`
   position: relative;
   padding: 17px 20px 16px;
   overflow: hidden;
   cursor: pointer;
-  border-bottom: 1px solid ${({ colorTheme }) => colorTheme.BORDER};
+  border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
     min-height: 160px;
@@ -62,12 +57,12 @@ export const Post = styled.div<ToggleProps>`
   }
 `;
 
-export const Title = styled.h1<ToggleProps>`
+export const Title = styled.h1`
   overflow: hidden;
   font-size: 17px;
   font-weight: 300;
   line-height: 24px;
-  color: ${({ colorTheme }) => colorTheme.MAIN};
+  color: ${({ theme }) => theme.colors.black};
   text-overflow: ellipsis;
 
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {
@@ -92,11 +87,11 @@ export const Content = styled.p`
   }
 `;
 
-export const Detail = styled.span<ToggleProps>`
+export const Detail = styled.span`
   font-size: 13px;
   font-weight: 200;
   line-height: 20px;
-  color: ${({ colorTheme }) => colorTheme.MAIN};
+  color: ${({ theme }) => theme.colors.black};
   opacity: 0.7;
 
   @media ${({ theme: { mediaQuery } }) => mediaQuery.laptop} {

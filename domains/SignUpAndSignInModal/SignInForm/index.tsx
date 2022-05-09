@@ -1,13 +1,12 @@
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useRouter } from 'next/router';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
 
 import * as S from '../styles';
 import { Props } from './types';
-import { fetchUserLogIn } from '@stores/modules/users';
-import { verifySignInInputs } from '../verifyInputs';
+import { fetchUserLogIn } from 'stores/modules/users';
 import { useUpdateToken } from './useUpdateToken';
+import { verifySignInInputs } from '../verifyInputs';
 
 const SignInForm = ({ email, setIsModalOpen }: Props) => {
   const dispatch = useDispatch();

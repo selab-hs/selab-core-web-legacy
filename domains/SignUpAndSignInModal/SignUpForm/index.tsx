@@ -1,12 +1,12 @@
-import { Response } from '@apis/types';
-import { signUpApi } from '@apis/users';
-import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 
 import * as S from '../styles';
 import { verifySignUpInputs } from '../verifyInputs';
 import { Props } from './types';
+import { Response } from '@apis/types';
+import { signUpApi } from '@apis/users';
+import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
 
 const SignUpForm = ({ email, setStep }: Props) => {
   const {

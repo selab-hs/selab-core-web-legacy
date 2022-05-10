@@ -19,7 +19,7 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
-import { MutableRefObject, useContext, useEffect, useRef } from 'react';
+import { MutableRefObject, useEffect, useRef } from 'react';
 import { v4 } from 'uuid';
 
 import { useGetWindowSize } from '@hooks/useGetWindowSize';
@@ -27,14 +27,15 @@ import * as S from './style';
 import { storage } from '@components/utils';
 import { TEMPORARY_POSTS } from '@components/utils/constants';
 import { deviceSize } from '@styles/theme/mediaQuery';
+import { useEditorDarkMode } from './useEditorDarkMode';
 
-export default function TuiEditor() {
+const TuiEditor = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>();
   const timeoutId = useRef(0);
 
   const windowSize = useGetWindowSize();
-
+  useEditorDarkMode();
   const handleEditorChange = () => {
     if (timeoutId.current) {
       clearTimeout(timeoutId.current);
@@ -67,22 +68,6 @@ export default function TuiEditor() {
     editorRef.current.getInstance().setMarkdown(content);
   }, []);
 
-  useEffect(() => {
-    const mdTabContainer = document.querySelector(
-      '.toastui-editor-md-tab-container',
-    ) as HTMLElement;
-    const el = document.getElementsByClassName('toastui-editor-defaultUI')[0];
-    if (storage.get('theme') === 'light') {
-      el.classList.remove('toastui-editor-dark');
-      mdTabContainer.style.background = '#fdfdff';
-      mdTabContainer.style.borderBottomColor = '#fdfdff';
-    } else {
-      el.classList.add('toastui-editor-dark');
-      mdTabContainer.style.background = 'rgb(35, 36, 40)';
-      mdTabContainer.style.borderBottomColor = 'rgb(35, 36, 40)';
-    }
-  }, [windowSize]);
-
   return (
     <S.Wrapper>
       <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
@@ -96,4 +81,6 @@ export default function TuiEditor() {
       />
     </S.Wrapper>
   );
-}
+};
+
+export default TuiEditor;

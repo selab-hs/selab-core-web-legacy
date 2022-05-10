@@ -29,26 +29,14 @@ import { useEditorDarkMode } from './useEditorDarkMode';
 import { useDebounce } from '@hooks/useDebounce';
 import { TEMPORARY_POST } from '@constants/posts-constants';
 import { v4 } from 'uuid';
+import { useSetInitialEditorInfo } from './useSetInitialEditorInfo';
 
 const TuiEditor = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const editorRef = useRef<Editor>(null);
-
   const windowSize = useGetWindowSize();
   useEditorDarkMode();
-  // const handleEditorChange = onEditorChange(editorRef, titleRef);
-
-  // useEffect(() => {
-  //   if (!editorRef.current || !titleRef.current) return;
-  //   // TODO: 데이터 추가되면 변경해야함
-
-  //   const tmpPost = storage.get<{ id: string; title: string; content: string }[]>(TEMPORARY_POSTS);
-  //   const content = tmpPost ? tmpPost[0].content : '';
-  //   const title = tmpPost ? tmpPost[0].title : '';
-
-  //   titleRef.current.value = title;
-  //   editorRef.current.getInstance().setMarkdown(content);
-  // }, []);
+  useSetInitialEditorInfo(titleRef, editorRef);
 
   const handleTitleChange = useDebounce(() => {
     const title = titleRef?.current?.value || '';

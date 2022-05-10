@@ -8,6 +8,7 @@ import { GlobalStyle } from '@styles/GlobalStyle';
 import { wrapper } from '@stores/index';
 import { useSetUserStoreToken } from './useSetUserStoreToken';
 import { useDarkModeTheme } from './useDarkModeTheme';
+import { MENUS } from '@constants/menu-constants';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [currentTab, setCurrentTab] = useHeaderTab();
@@ -15,19 +16,13 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useSetUserStoreToken();
 
-  const menuArr = [
-    { link: '/', content: '홈' },
-    { link: '/free-posts', content: '게시글' },
-    { link: '/write', content: '글작성' },
-  ];
-
   return (
     <ThemeProvider theme={theme}>
       <Global styles={GlobalStyle(theme)} />
       {currentTab !== null && (
         <>
-          <Header currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={menuArr} />
-          <DynamicHeader currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={menuArr} />
+          <Header currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={MENUS} />
+          <DynamicHeader currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={MENUS} />
         </>
       )}
       <Component {...pageProps} />

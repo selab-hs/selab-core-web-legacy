@@ -107,15 +107,6 @@ export const GlobalStyle = (props: Theme) =>
       text-transform: none;
     }
 
-    button,
-    [type='button'],
-    [type='reset'],
-    [type='submit'] {
-      appearance: button;
-      background-color: transparent;
-      background-image: none;
-    }
-
     :-moz-focusring {
       outline: auto;
     }

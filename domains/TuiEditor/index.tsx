@@ -26,7 +26,6 @@ import { useGetWindowSize } from '@hooks/useGetWindowSize';
 import * as S from './style';
 import { storage } from '@components/utils';
 import { TEMPORARY_POSTS } from '@components/utils/constants';
-import { ThemeContext } from '@pages/_app';
 import { deviceSize } from '@styles/theme/mediaQuery';
 
 export default function TuiEditor() {
@@ -35,7 +34,6 @@ export default function TuiEditor() {
   const timeoutId = useRef(0);
 
   const windowSize = useGetWindowSize();
-  const { colorTheme } = useContext(ThemeContext);
 
   const handleEditorChange = () => {
     if (timeoutId.current) {
@@ -83,7 +81,7 @@ export default function TuiEditor() {
       mdTabContainer.style.background = 'rgb(35, 36, 40)';
       mdTabContainer.style.borderBottomColor = 'rgb(35, 36, 40)';
     }
-  }, [colorTheme, windowSize]);
+  }, [windowSize]);
 
   return (
     <S.Wrapper>

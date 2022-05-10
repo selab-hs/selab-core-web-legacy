@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { MouseEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-import DarkModeToggle from './DarkModeToggle';
+import DarkModeToggle from './DarkModeToggleBtn';
 import * as S from './style';
 import { Props } from './types';
 import { storage } from '@components/utils';

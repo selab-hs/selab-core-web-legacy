@@ -4,7 +4,7 @@ import Header from '../Header';
 import { Props } from '../Header/types';
 import * as S from './style';
 
-const DynamicHeader = ({ currentTab, setCurrentTab, menuArr }: Props) => {
+const DynamicHeader = ({ currentTab, setCurrentTab }: Props) => {
   const timeOutId = useRef(0);
   const [show, setShow] = useState(false);
   const [showTransition, setShowTransition] = useState(true);
@@ -48,7 +48,7 @@ const DynamicHeader = ({ currentTab, setCurrentTab, menuArr }: Props) => {
   return (
     <>
       <S.HeaderWrapper show={show} showTransition={showTransition}>
-        <Header currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={menuArr} />
+        <Header currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </S.HeaderWrapper>
     </>
   );

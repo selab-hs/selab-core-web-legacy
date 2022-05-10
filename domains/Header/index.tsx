@@ -1,29 +1,16 @@
-import Link from 'next/link';
-
 import { Props } from './types';
 import * as S from './style';
 import HeaderBtns from './HeaderBtns';
 import SeLogo from './SeLogo';
+import MenuTabs from './MenuTabs';
 
-const Header = ({ currentTab, setCurrentTab, menuArr, ...props }: Props) => {
+const Header = ({ currentTab, setCurrentTab, ...props }: Props) => {
   return (
     <S.HeaderWrapper {...props}>
       <S.Header>
         <SeLogo />
         <HeaderBtns currentTab={currentTab} />
-        <nav>
-          <S.Ul>
-            {menuArr.map((menu, index) => (
-              <li
-                key={index}
-                className={currentTab === index ? 'focused' : ''}
-                onClick={() => setCurrentTab(index)}
-              >
-                <Link href={menu.link}>{menu.content}</Link>
-              </li>
-            ))}
-          </S.Ul>
-        </nav>
+        <MenuTabs currentTab={currentTab} setCurrentTab={setCurrentTab} />
       </S.Header>
     </S.HeaderWrapper>
   );

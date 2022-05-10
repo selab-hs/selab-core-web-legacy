@@ -8,7 +8,6 @@ import { GlobalStyle } from '@styles/GlobalStyle';
 import { wrapper } from '@stores/index';
 import { useSetUserStoreToken } from './useSetUserStoreToken';
 import { useDarkModeTheme } from './useDarkModeTheme';
-import { MENUS } from '@constants/menu-constants';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [currentTab, setCurrentTab] = useHeaderTab();
@@ -21,8 +20,8 @@ function MyApp({ Component, pageProps }: AppProps) {
       <Global styles={GlobalStyle(theme)} />
       {currentTab !== null && (
         <>
-          <Header currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={MENUS} />
-          <DynamicHeader currentTab={currentTab} setCurrentTab={setCurrentTab} menuArr={MENUS} />
+          <Header currentTab={currentTab} setCurrentTab={setCurrentTab} />
+          <DynamicHeader currentTab={currentTab} setCurrentTab={setCurrentTab} />
         </>
       )}
       <Component {...pageProps} />

@@ -19,31 +19,20 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
-import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useRef } from 'react';
 
 import * as S from './style';
 import { useGetWindowSize } from '@hooks/useGetWindowSize';
 import { useLoadFreePost } from './useLoadFreePost';
 import Infos from './Infos';
-import { RootState } from '@stores/modules';
-import { DARK_MODE_VALUE } from '@constants/theme-constants';
 import Indicator from './Indicator';
+import { useViewerDarkMode } from './useViewerDarkMode';
 
 const TuiEditor = () => {
   const ref = useRef<HTMLDivElement>(null);
   const freePost = useLoadFreePost();
   const windowWidth = useGetWindowSize();
-  const { mode } = useSelector((state: RootState) => state.darkModes);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    if (mode === DARK_MODE_VALUE.LIGHT) {
-      return el.classList.remove('toastui-editor-dark');
-    }
-    el.classList.add('toastui-editor-dark');
-  }, [freePost, mode]);
+  useViewerDarkMode(ref, freePost);
 
   return (
     <S.Wrapper>

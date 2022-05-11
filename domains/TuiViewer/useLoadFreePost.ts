@@ -27,13 +27,17 @@ export const useLoadFreePost = () => {
       // console.error(message);
       // console.error(code);
 
+      if (message === 'FREE_POST_NOT_EXISTS_ERROR') {
+        alert('접근이 불가능합니다.');
+        return router.push('/');
+      }
       if (status >= 400) return alert(CLIENT_ERROR);
       if (status >= 500) return alert(SERVER_ERROR);
     }
   };
 
   useEffect(() => {
-    callApi();
+    router.query.id && callApi();
   }, [router.query.id]);
 
   return freePost;

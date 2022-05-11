@@ -40,7 +40,6 @@ const TuiEditor = () => {
         <S.Container>
           <S.Title>{freePost.title}</S.Title>
           <Infos createdAt={freePost.createdAt} memberId={freePost.memberId} />
-
           <div ref={ref}>
             <Viewer
               initialValue={freePost.content}
@@ -53,23 +52,5 @@ const TuiEditor = () => {
     </S.Wrapper>
   );
 };
-
-// TODO: ssr을 못하는게 아마도 이걸로 추정
-// dynamic(() => import('../../components/TuiViewer'), { ssr: false });
-
-// export async function getServerSideProps(context: any) {
-//   const id = context.params.id;
-//   const response = await axios({
-//     method: 'get',
-//     url: `/api/v1/free-posts/${id}.json`,
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   });
-
-//   return {
-//     props: { freePost: response.data.data },
-//   };
-// }
 
 export default TuiEditor;

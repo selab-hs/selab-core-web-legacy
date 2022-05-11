@@ -1,5 +1,3 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
-
 import Prism from 'prismjs';
 import 'prismjs/themes/prism.css';
 import 'prismjs/components/prism-java.js';
@@ -21,80 +19,47 @@ import { Viewer } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
-import { BsFillHeartFill, BsLink45Deg } from 'react-icons/bs';
-import { BiCommentDetail } from 'react-icons/bi';
+import React, { useEffect, useRef } from 'react';
+import { useSelector } from 'react-redux';
+
 import * as S from './style';
-import { useRouter } from 'next/router';
-import { timeWithHyphen } from '@components/utils/timeWithHyphen';
-import { FreePostType } from '@pages/free-posts/types';
-import { ThemeContext } from '@pages/_app';
-import { getSinglePostAPI } from '@apis/posts';
 import { useGetWindowSize } from '@hooks/useGetWindowSize';
-import { storage } from '@components/utils';
+import { useLoadFreePost } from './useLoadFreePost';
+import Infos from './Infos';
+import { RootState } from '@stores/modules';
+import { DARK_MODE_VALUE } from '@constants/theme-constants';
+import Indicator from './Indicator';
 
 const TuiEditor = () => {
-  const [freePost, setFreePost] = useState<FreePostType | null>(null);
-  const { colorTheme } = useContext(ThemeContext);
   const ref = useRef<HTMLDivElement>(null);
-  const router = useRouter();
-
-  useEffect(() => {
-    (async () => {
-      const response = await getSinglePostAPI(router.query.id as string);
-      setFreePost(response.data.data);
-    })();
-  }, [router.query.id]);
-
+  const freePost = useLoadFreePost();
   const windowWidth = useGetWindowSize();
-
-  // TODO: 좋아요, 댓글, 공유하기에 기능 붙이기
+  const { mode } = useSelector((state: RootState) => state.darkModes);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    if (storage.get('theme') === 'light') {
-      el.classList.remove('toastui-editor-dark');
-    } else {
-      el.classList.add('toastui-editor-dark');
+    if (mode === DARK_MODE_VALUE.LIGHT) {
+      return el.classList.remove('toastui-editor-dark');
     }
-  }, [freePost, colorTheme]);
+    el.classList.add('toastui-editor-dark');
+  }, [freePost, mode]);
 
   return (
     <S.Wrapper>
-      {freePost ? (
+      {freePost && (
         <S.Container>
           <S.Title>{freePost.title}</S.Title>
-          <S.InfoWrapper>
-            <S.Info>
-              <span>{timeWithHyphen(freePost.createdAt)}</span>
-              {/*  TODO: 조회수 보여주기 */}
-              {/* <span>조회수: 26</span> */}
-              {/*  TODO: 사용자 이름 보여주기 */}
-              <span>작성자: {freePost.memberId}번 사용자</span>
-            </S.Info>
-            <S.Info clickable>
-              <span>수정</span>
-              <span>삭제</span>
-            </S.Info>
-          </S.InfoWrapper>
+          <Infos createdAt={freePost.createdAt} memberId={freePost.memberId} />
+
           <div ref={ref}>
             <Viewer
               initialValue={freePost.content}
               plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
             />
           </div>
-          {windowWidth > 1160 && (
-            <S.Indicator>
-              <S.IndicatorContent>
-                <BsFillHeartFill size={20} cursor="pointer" />
-                <BsLink45Deg size={20} cursor="pointer" />
-                <BiCommentDetail size={20} cursor="pointer" />
-              </S.IndicatorContent>
-            </S.Indicator>
-          )}
+          {windowWidth > 1160 && <Indicator />}
         </S.Container>
-      ) : (
-        <div>로딩중...</div>
       )}
     </S.Wrapper>
   );

@@ -1,6 +1,8 @@
 import { MouseEvent, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
+import { useRouter } from 'next/router';
+
 import { storage } from '@components/utils';
 import { SESSION_ID } from '@constants/user-constants';
 import { users } from '@stores/modules/users';
@@ -12,13 +14,15 @@ const NormalTabBtns = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useIsLoggedIn();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   const handleSignUpAndLogOutBtn = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (isLoggedIn) {
       storage.remove(SESSION_ID);
       setIsLoggedIn(undefined);
-      return dispatch(users.actions.logOut());
+      dispatch(users.actions.logOut());
+      return router.push('/');
     }
     setIsModalOpen(true);
   };

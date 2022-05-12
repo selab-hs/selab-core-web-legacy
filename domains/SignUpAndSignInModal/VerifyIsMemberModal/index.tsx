@@ -38,6 +38,7 @@ const VerifyIsMemberModal = ({ setStep, setEmail }: Props) => {
 
   return (
     <S.Form onSubmit={handleSubmit(onSubmit)}>
+      <S.Title>회원 가입 / 로그인</S.Title>
       <S.Label htmlFor="email">이메일</S.Label>
       <S.Input id="email" placeholder="이메일을 입력해 주세요" autoFocus {...register('email')} />
       {errors.email && <S.ErrorMsg>{errors.email.message}</S.ErrorMsg>}

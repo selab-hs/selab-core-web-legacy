@@ -8,12 +8,14 @@ import { GlobalStyle } from '@styles/GlobalStyle';
 import { wrapper } from '@stores/index';
 import { useSetUserStoreToken } from './useSetUserStoreToken';
 import { useDarkModeTheme } from './useDarkModeTheme';
+import { useRouteGuard } from './useRouteGuard';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [currentTab, setCurrentTab] = useHeaderTab();
   const theme = useDarkModeTheme();
 
   useSetUserStoreToken();
+  useRouteGuard();
 
   return (
     <ThemeProvider theme={theme}>

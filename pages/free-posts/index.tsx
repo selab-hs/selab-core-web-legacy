@@ -24,7 +24,7 @@ const FreePosts = () => {
               <S.Post>
                 <S.Title>{data.title}</S.Title>
                 <S.Content>{data.content}</S.Content>
-                <S.Detail>{`${timeForToday(data.createdAt)} • ${data.memberId}번 작성자`}</S.Detail>
+                <S.Detail>{`${timeForToday(data.createdAt)} • 작성자: ${data.memberId}`}</S.Detail>
               </S.Post>
             </Link>
           );

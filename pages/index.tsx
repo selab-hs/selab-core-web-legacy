@@ -1,18 +1,7 @@
 import styled from '@emotion/styled';
 
 const Index = () => {
-  return (
-    <>
-      <h1>index</h1>
-      <Div>
-        asdfasdf
-        <br />
-        asdf
-      </Div>
-    </>
-  );
+  return <>😀안녕하세요 SELAB 입니다😀</>;
 };
-const Div = styled.div`
-  background-color: ${({ theme }) => theme.colors.red};
-`;
+
 export default Index;

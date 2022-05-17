@@ -19,75 +19,51 @@ import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 
-import { MutableRefObject, useContext, useEffect, useRef } from 'react';
-import { v4 } from 'uuid';
+import { MutableRefObject, useRef } from 'react';
 
 import { useGetWindowSize } from '@hooks/useGetWindowSize';
 import * as S from './style';
 import { storage } from '@components/utils';
-import { TEMPORARY_POSTS } from '@components/utils/constants';
-import { ThemeContext } from '@pages/_app';
 import { deviceSize } from '@styles/theme/mediaQuery';
+import { useEditorDarkMode } from './useEditorDarkMode';
+import { useDebounce } from '@hooks/useDebounce';
+import { TEMPORARY_POST } from '@constants/posts-constants';
+import { v4 } from 'uuid';
+import { useSetInitialEditorInfo } from './useSetInitialEditorInfo';
 
-export default function TuiEditor() {
+const TuiEditor = () => {
   const titleRef = useRef<HTMLInputElement>(null);
-  const editorRef = useRef<Editor>();
-  const timeoutId = useRef(0);
-
+  const editorRef = useRef<Editor>(null);
   const windowSize = useGetWindowSize();
-  const { colorTheme } = useContext(ThemeContext);
+  useEditorDarkMode();
+  useSetInitialEditorInfo(titleRef, editorRef);
 
-  const handleEditorChange = () => {
-    if (timeoutId.current) {
-      clearTimeout(timeoutId.current);
-    }
-    timeoutId.current = window.setTimeout(() => {
-      if (!editorRef.current) return;
-      const content = editorRef.current.getInstance().getMarkdown();
+  const handleTitleChange = useDebounce(() => {
+    const title = titleRef?.current?.value || '';
+    const content = editorRef?.current?.getInstance().getMarkdown() || '';
+    if (!title && !content) return;
 
-      const postObj = [
-        {
-          id: v4(),
-          title: titleRef.current?.value || '',
-          content,
-        },
-      ];
+    const nextPost = { id: v4(), title, content };
+    storage.set(TEMPORARY_POST, nextPost);
+  }, 500);
 
-      storage.set(TEMPORARY_POSTS, postObj);
-    }, 500);
-  };
+  const handleEditorChange = useDebounce(() => {
+    const title = titleRef?.current?.value || '';
+    const content = editorRef?.current?.getInstance().getMarkdown() || '';
+    if (!title && !content) return;
 
-  useEffect(() => {
-    if (!editorRef.current || !titleRef.current) return;
-    // TODO: 데이터 추가되면 변경해야함
+    const postObj = {
+      id: v4(),
+      title,
+      content,
+    };
 
-    const tmpPost = storage.get<{ id: string; title: string; content: string }[]>(TEMPORARY_POSTS);
-    const content = tmpPost ? tmpPost[0].content : '';
-    const title = tmpPost ? tmpPost[0].title : '';
-
-    titleRef.current.value = title;
-    editorRef.current.getInstance().setMarkdown(content);
-  }, []);
-
-  useEffect(() => {
-    const mdTabContainer = document.querySelector(
-      '.toastui-editor-md-tab-container',
-    ) as HTMLElement;
-    const el = document.getElementsByClassName('toastui-editor-defaultUI')[0];
-    if (storage.get('theme') === 'light') {
-      el.classList.remove('toastui-editor-dark');
-      mdTabContainer.style.background = '#fdfdff';
-      mdTabContainer.style.borderBottomColor = '#fdfdff';
-    } else {
-      el.classList.add('toastui-editor-dark');
-      mdTabContainer.style.background = 'rgb(35, 36, 40)';
-      mdTabContainer.style.borderBottomColor = 'rgb(35, 36, 40)';
-    }
-  }, [colorTheme, windowSize]);
+    storage.set(TEMPORARY_POST, postObj);
+  }, 500);
 
   return (
     <S.Wrapper>
-      <S.Title placeholder="제목을 입력하세요" ref={titleRef} />
+      <S.Title placeholder="제목을 입력하세요" ref={titleRef} onChange={handleTitleChange} />
       <Editor
         ref={editorRef as MutableRefObject<Editor>}
         height="100%"
@@ -98,4 +74,6 @@ export default function TuiEditor() {
       />
     </S.Wrapper>
   );
-}
+};
+
+export default TuiEditor;

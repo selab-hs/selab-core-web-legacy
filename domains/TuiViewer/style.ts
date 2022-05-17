@@ -69,6 +69,6 @@ export const IndicatorContent = styled.div`
   gap: 1.25rem;
   align-items: center;
   padding: 1.25rem 1.2rem;
-  background-color: rgb(246 247 248);
+  background-color: ${({ theme }) => theme.colors.modalBg};
   border-radius: 30px;
 `;

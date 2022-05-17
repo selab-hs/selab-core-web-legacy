@@ -2,7 +2,7 @@ import { MutableRefObject, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '@stores/modules';
 import { DARK_MODE_VALUE } from '@constants/theme-constants';
-import { FreePostType } from '@pages/free-posts/types';
+import { FreePostType } from '@domains/free-posts/types';
 
 export const useViewerDarkMode = (
   ref: MutableRefObject<HTMLDivElement | null>,

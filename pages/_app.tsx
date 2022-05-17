@@ -2,13 +2,14 @@ import React from 'react';
 import type { AppProps } from 'next/app';
 import { Global, ThemeProvider } from '@emotion/react';
 
-import { useHeaderTab } from './useHeaderTab';
-import { Header, DynamicHeader } from '@domains/index';
 import { GlobalStyle } from '@styles/GlobalStyle';
 import { wrapper } from '@stores/index';
-import { useSetUserStoreToken } from './useSetUserStoreToken';
-import { useDarkModeTheme } from './useDarkModeTheme';
-import { useRouteGuard } from './useRouteGuard';
+import { useDarkModeTheme } from '../domains/pages/useDarkModeTheme';
+import Header from '@domains/Header';
+import DynamicHeader from '@domains/DynamicHeader';
+import { useHeaderTab } from '@domains/pages/useHeaderTab';
+import { useSetUserStoreToken } from '@domains/pages/useSetUserStoreToken';
+import { useRouteGuard } from '@domains/pages/useRouteGuard';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const [currentTab, setCurrentTab] = useHeaderTab();

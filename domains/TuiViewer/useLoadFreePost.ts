@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { getSinglePostAPI } from '@apis/posts';
 import { Response } from '@apis/types';
 import { CLIENT_ERROR, SERVER_ERROR } from '@constants/api-constants';
-import { FreePostType } from '@pages/free-posts/types';
+import { FreePostType } from '@domains/free-posts/types';
 
 export const useLoadFreePost = () => {
   const router = useRouter();

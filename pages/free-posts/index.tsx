@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { BiSearchAlt2 } from 'react-icons/bi';
 
-import * as S from './style';
-import { FreePostType } from './types';
+import * as S from '../../domains/free-posts/style';
 import { timeForToday } from '@components/utils/timeForToday';
-import { useGetFreePosts } from './useGetFreePosts';
+import { useGetFreePosts } from '@domains/free-posts/useGetFreePosts';
+import { FreePostType } from '@domains/free-posts/types';
 
 const FreePosts = () => {
   const freePosts = useGetFreePosts();

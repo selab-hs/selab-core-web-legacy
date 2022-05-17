@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { getPostsAPI } from '@apis/posts';
 import { Response } from '@apis/types';

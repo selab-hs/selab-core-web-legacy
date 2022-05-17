@@ -1,4 +1,4 @@
-import { FreePostType } from '../../pages/free-posts/types';
+import { FreePostType } from '@domains/free-posts/types';
 
 export interface GetPostsAPIResponse {
   data: {
